@@ -1,0 +1,64 @@
+#overlay  {
+      background: #000;
+      opacity: 0.5;
+      filter: alpha(opacity = 50); /* So that opacity works in IE */
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      cursor: hand;
+}
+
+#littleBox {
+        background: #FFF;
+	      z-index: 110;
+	      position: absolute;
+        width: 400px;
+        min-height: 200px;
+        height: auto;
+        border: 2px solid black;
+        padding: 1em;
+}
+
+#littleBox h3 {
+        font-size: 1.3em;
+        text-align: center;
+        display: inline;
+}
+
+#littleBox p {
+        font-size: 0.9em;
+        color: #B10513;
+        text-align: center;
+        margin-bottom: 0.2em;
+}
+
+#littleBox a#close {
+        margin-left: 1.5em;
+        display: block;
+        text-align: left;
+        font-size: 0.8em;
+}
+
+#littleBox #boxmenu a {
+        text-align: right;
+}        
+
+#littleBox dl {
+        margin: 1em;
+}
+
+#littleBox dl dt {
+        width: 120px;
+        font-weight: bold;
+        float: left;
+        clear: both;
+        margin-bottom: 5px;
+}
+
+#littleBox dl dd {
+        margin-bottom: 5px;
+}
+

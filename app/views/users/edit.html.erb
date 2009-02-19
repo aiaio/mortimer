@@ -1,0 +1,33 @@
+<h2><%= @user == current_user ? "#{@user.full_name}'s Account" : "Editing #{@user.full_name}" %></h2>
+
+<%= error_messages_for :user %>
+
+<% form_tag user_path(@user), :method => "put" do %>
+
+  <%= render :partial => "form" %>
+  <% if @user == current_user %>
+  <div class="small">Note: leave password blank if you don't want to update it.</div>
+  <div class="small">Passwords must be at least eight characters long, containing a minimum of one capital letter and two non-word characters.</div>
+  <% end %>
+
+  <input type="submit" value="Update" /> | 
+
+  <% if current_user.is_admin? && @user != current_user %>
+    <a href="<%= users_path %>">Cancel</a>  
+  |  
+  <%= link_to "Remove this user", @user, :confirm => "Are you sure?", 
+    :method => :delete, :class => "destroy" %>
+  |
+  <%= link_to admin_toggle_text(@user) + " Admin Rights", user_path(@user) + "/toggle_admin", 
+  :confirm => "Are you sure you want to #{admin_toggle_text(@user).upcase + " Admin Rights"}?",
+    :method => :post, :class => "destroy" %>
+  <% else %>
+    <a href="<%= home_path %>">Cancel</a>  
+  <% end %>
+
+<% end %>
+
+<% if current_user.is_admin? && !@user.is_admin? %>
+  <%= render :partial => "/permissions/menu" %>
+<% end %>
+

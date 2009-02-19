@@ -1,0 +1,11 @@
+user_1:
+  id: 1
+  login: bob
+  crypted_password: "0XlmUuNpE2k=\n"
+  crypted_creditcard: "vYfMxtVB8ezXmQKSNqTC9sPgi8TbsYRxWd7DVbpprzyuEdZ7gftJ/0IXsbXm\nXCU08bTAl0uEFm7dau+eJMXEJg==\n"
+  type: SymmetricUser
+user_2:
+  id: 2
+  login: fred
+  crypted_creditcard: "q2obYAITmK93ylzVS01mJx1jSlnmylMX15nFpb4uKesVgnqvtzBRHZ/SK+Nm\nEzceIoAcJc3DHosVa4VUE/aK/A==\n"
+  

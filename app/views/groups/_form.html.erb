@@ -1,0 +1,14 @@
+<dl>
+  <dt>Name:</dt>
+  <dd>
+    <input name="group[title]" value="<%= @group.title %>" size='20' maxlength='40'/>
+  </dd>
+
+  <dt>Parent Group:</dt>
+  <dd>
+    <select name="group[parent_id]">
+      <%= options_for_select @groups, @group.parent_id %>
+    </select>  
+  </dd>
+
+</dl>

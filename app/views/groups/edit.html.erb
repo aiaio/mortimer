@@ -1,0 +1,17 @@
+<h2>Edit group</h2>
+<div id="menu">
+  <a href="<%= new_entry_url(:entry => {:group_id => @group.id}) %>">Add entry</a> 
+</div>	
+<% form_tag group_url(@group), :method => "put" do %>
+  <%= error_messages_for :group %>
+  <%= render :partial => "form" %>
+
+  <input type="submit" value="Update" />
+    |
+    <a href="<%= home_path %>" class="cancel">Cancel</a>
+    <% if current_user.is_admin? %>  
+    |
+    <%= link_to "Delete this group", group_path(@group), :method => "delete", 
+      :class => "destroy", :confirm => "Are you sure you want to delete this group?" %>
+    <% end %>  
+<% end %>

@@ -1,0 +1,12 @@
+<h2>New group</h2>
+
+<% form_for :group, :url => groups_url do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form" %>
+  <p>
+    <%= f.submit "Create" %>
+    |
+    <a href="<%= home_path %>" class="cancel">Cancel</a>
+  </p>
+<% end %>
+

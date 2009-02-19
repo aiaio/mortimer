@@ -1,0 +1,10 @@
+<% if group.has_children_or_entries? %>
+<a href='javascript:void(0);' class='slideHandle'> + </a>  
+<% end %>
+
+<span class='group_title'><%= group.title %></span> 
+
+<% if group.allows_write_access_for?(current_user) %>
+  <span class='edit'>(<a href="<%= edit_group_url(group) %>">edit</a>)</span>
+<% end %>
+

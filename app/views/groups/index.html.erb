@@ -1,0 +1,16 @@
+<h2>Passwords</h2>
+
+<% if current_user.is_admin? %>
+<div id="menu">
+  <% unless @groups.blank? %>
+  <a href="<%= new_entry_url %>">Add entry</a> |
+  <% end %>  
+  <a href="<%= new_group_url %>">Add group</a>  
+</div>
+<% end %>
+
+<% if @groups.blank? && !current_user.is_admin? %>
+  <p><strong>You currently have no permissions. Please contact a system administrator for help.</strong></p>
+<% else %>  
+  <%= render :partial => "groups/group.html.erb", :locals => {:groups => @groups, :level => 0} %>
+<% end %>

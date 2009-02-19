@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  
+  <title>mortimer</title>
+  
+  <%= stylesheet_link_tag "screen.css" %>
+  <%= stylesheet_link_tag "littlebox.css" %>
+  
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "littlebox", "slideopen" %>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+</head>
+<body>
+<!-- start #wrapper -->
+  <div id="wrapper">
+          
+    <!-- start #header -->
+    <div id="header" <%= "class=\"admin\"" if current_user.is_admin? %>>
+
+      <h1 id="apptitle"><span class="digit">m</span><span class="digit">o</span><span class="digit">r</span><span class="digit">t</span><span class="digit">i</span><span class="digit">m</span><span class="digit">e</span><span class="digit">r</span></h1>
+      
+      <ul id="nav" class="clear">
+        <% if current_user.is_admin? %>
+          <%= render :partial => "layouts/admin_nav" %>
+        <% else %>
+          <%= render :partial => "layouts/user_nav" %>
+        <% end %>  
+      </ul>
+
+      <% unless flash[:notice].blank? %>
+        <p id="notice"><%= flash[:notice] %></p>
+      <% end %>
+
+      <div id="log-info">
+        Logged in as <%= current_user.login %> | 
+        <a href="/logout">Logout</a>
+      </div>
+    </div> <!-- end #header --> 
+    
+    <!-- start #container --> 
+    <div id="container">
+          
+      <div id="content">
+        <%= yield %>
+      </div>
+
+    </div>
+    <!-- end #container -->
+                      
+  </div>
+  <!-- end #wrapper -->
+</body>
+</html>

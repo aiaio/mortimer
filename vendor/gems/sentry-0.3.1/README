@@ -1,0 +1,94 @@
+= Sentry lib - painless encryption library
+
+Sentry is a simple wrapper around the mostly undocumented OpenSSL encryption classes.  
+For now, look at the pseudo test cases in sentry.rb until I can get more examples written out.
+
+== Resources
+
+Install
+
+* gem install sentry
+
+Rubyforge project
+
+* http://rubyforge.org/projects/sentry
+
+RDocs
+
+* http://sentry.rubyforge.org
+
+Subversion
+
+* http://techno-weenie.net/svn/projects/sentry
+
+Collaboa
+
+* http://collaboa.techno-weenie.net/repository/browse/sentry
+
+== Using with ActiveRecord
+
+I wrote this for the purpose of encrypting ActiveRecord attributes.  Just <tt>require 'sentry'</tt>, and some new 
+class methods will be available to you:
+
+=== generates_crypted
+
+  generates_crypted :password, :mode => :sha | :symmetric | :asymmetric
+  
+This is the generic class method to use.  Default mode is :sha.  
+
+=== generates_crypted_hash_of
+
+  generates_crypted_hash_of :password
+
+This is a shortcut for using SHA encryption.  No different than specifying <tt>generates_crypted :password</tt>.  In the above 
+example, model.password is a virtual field, and the SHA hash is saved to model.crypted_password
+
+=== asymmetrically_encrypts
+  
+  asymmetrically_encrypts :password
+
+This is a shortcut for using an asymmetrical algorithm with a private/public key file.  To use this, generate a public and
+private key with Sentry::AsymmetricalSentry.save_random_rsa_key(private_key_file, public_key_file).  If you want to encrypt the
+private key file with a symmetrical algorithm, pass a secret key (neither the key nor the decrypted value will be stored).
+
+  Sentry::AsymmetricSentry.save_random_rsa_key(private_key_file, public_key_file, :key => 'secret_password')
+
+What that does, is requires you to pass in that same secret password when accesing the method.  
+
+  class Model < ActiveRecord::Base
+    generates_crypted :password, :mode => :asymmetric
+  end
+  
+  model.password = '5234523453425'
+  model.save   # password is encrypted and saved to crypted_password in the database, 
+               # model.password is cleared and becomes a virtual field.
+  model.password('secret_password')
+  => '5234523453425'
+
+The public and private key file names can be set in config/environment.rb
+
+  Sentry::AsymmetricSentry.default_public_key_file = "#{RAILS_ROOT}/config/public.key"
+  Sentry::AsymmetricSentry.default_private_key_file = "#{RAILS_ROOT}/config/private.key"
+
+If the private key was encrypted with the Sentry::AsymmetricalSentry#save_random_rsa_key, you must provide that same key
+when accessing the AR model.
+
+=== symmetrically_encrypts
+
+  symmetrically_encrypts :password
+
+This is a shortcut for using a symmetrical algorithm with a secret password to encrypt the field.  
+
+  class Model < ActiveRecord::Base
+    generates_crypted :password, :mode => :symmetric
+  end
+  
+  model.password = '5234523453425'
+  model.save   # password is encrypted and saved to crypted_password in the database, 
+               # model.password is cleared and becomes a virtual field.
+  model.password
+  => '5234523453425'
+
+The secret password can be set in config/environment.rb
+
+  Sentry::SymmetricSentry.default_key = "secret_password"

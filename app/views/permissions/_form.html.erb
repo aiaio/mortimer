@@ -1,0 +1,17 @@
+<dl>
+
+  <dt>Group</dt>
+    <dd><select name="permission[group_id]">
+        <%= options_for_select(Group.non_permitted_for_user(@user.groups)) %>
+        </select>
+    </dd>
+
+  <dt>Mode</dt>
+    <dd><select name="permission[mode]">
+        <%= options_for_select([["Read", "READ"], ["Write", "WRITE"]]) %>
+        </select>
+    </dd>
+
+</dl>
+
+

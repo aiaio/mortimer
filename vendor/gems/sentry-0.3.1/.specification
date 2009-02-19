@@ -1,0 +1,82 @@
+--- !ruby/object:Gem::Specification 
+name: sentry
+version: !ruby/object:Gem::Version 
+  version: 0.3.1
+platform: ruby
+authors: 
+- Rick Olson
+autorequire: sentry
+bindir: bin
+cert_chain: 
+date: 2006-01-07 00:00:00 -05:00
+default_executable: 
+dependencies: []
+
+description: 
+email: technoweenie@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- lib/active_record
+- lib/sentry
+- lib/sentry.rb
+- lib/active_record/sentry.rb
+- lib/sentry/asymmetric_sentry.rb
+- lib/sentry/asymmetric_sentry_callback.rb
+- lib/sentry/sha_sentry.rb
+- lib/sentry/symmetric_sentry.rb
+- lib/sentry/symmetric_sentry_callback.rb
+- test/abstract_unit.rb
+- test/asymmetric_sentry_callback_test.rb
+- test/asymmetric_sentry_test.rb
+- test/database.yml
+- test/debug.log
+- test/fixtures
+- test/keys
+- test/schema.rb
+- test/sha_sentry_test.rb
+- test/symmetric_sentry_callback_test.rb
+- test/symmetric_sentry_test.rb
+- test/tests.rb
+- test/fixtures/user.rb
+- test/fixtures/users.yml
+- test/keys/encrypted_private
+- test/keys/encrypted_public
+- test/keys/private
+- test/keys/public
+- README
+- MIT-LICENSE
+- CHANGELOG
+- RUNNING_UNIT_TESTS
+has_rdoc: true
+homepage: http://techno-weenie.net
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">"
+    - !ruby/object:Gem::Version 
+      version: 0.0.0
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 1
+summary: Sentry provides painless encryption services with a wrapper around some OpenSSL classes
+test_files: 
+- test/tests.rb

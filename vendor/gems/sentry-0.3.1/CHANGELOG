@@ -1,0 +1,58 @@
+*0.3.1* (7 Jan 2006)
+
+* removed useless breakpoint [Solomon White]
+
+*0.3* (29 Oct 2005)
+
+* added rake task for generating asymmetric keys
+* Switch to migrations and schema for testing setup
+
+*0.2.9* (18 Sep 2005)
+
+* First RubyForge release.
+
+*0.2.8* (17 Sep 2005)
+
+* Added Active Record unit tests
+
+*0.2.7* (17 Sep 2005)
+
+* Added rdocs and stubs for AR unit tests
+
+*0.2.6* (2 Aug 2005)
+
+* Fixed generates_crypted so it adds attribute accessors
+
+*0.2.5* (27 Jul 2005)
+
+* Set ActiveRecord callback objects to only encrypt fields when they are not empty.
+
+*0.2.4* (11 Jul 2005)
+
+* Split ActiveRecord callback methods into their own classes.
+* Set AR virtual columns to fail silently on errors.
+
+*0.2.3* (11 Jul 2005)
+
+* Added ActiveRecord callback objects for SymmetricSentry and AsymmetricSentry.  +one_way_encrypt+ is depreciated.
+* Readme doc added too
+
+*0.2.1* (9 Jul 2005)
+
+* vastly simplified one_way_encrypt at danp's suggestion.  Use this in your model to try it out:
+
+    +one_way_encrypt :password*
+
+  That generates an SHA hash of model.password to model.crypted_password which is saved in the DB.  
+  model.password is a virtual field.  Continue using validates_confirmation_of for confirmation.
+
+
+*0.2* (9 Jul 2005)
+
+* added ActiveRecord::Base#one_way_encrypt class method to hash passwords with SHA
+* Renamed core classes to SymmetricSentry and AsymmetricSentry
+* Test Suite added
+
+*0.1* 
+
+* Initial Import

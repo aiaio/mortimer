@@ -1,0 +1,18 @@
+<h2>Edit entry</h2>
+
+<%= error_messages_for :entry %>
+
+<% form_tag entry_url(@entry), :method => "put" do %>
+
+  <%= render :partial => "form" %>
+
+  <div class="small">Note: leave password blank if you don't want to update it.</div>
+  <input type="submit" value="Update" />
+  |
+  <a href="<%= home_path %>" class="cancel">Cancel</a>
+  |
+  <%= link_to "Delete this entry", entry_path(@entry), :method => "delete", 
+    :class => "destroy", :confirm => "Are you sure?" %>
+
+<% end %>
+

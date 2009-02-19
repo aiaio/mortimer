@@ -1,0 +1,17 @@
+<div class="login">
+  <h1>Log In</h1>
+
+  <% if flash[:notice] %>
+    <p><%= flash[:notice] %></p>
+  <% end %>
+
+  <% form_tag session_path, :autocomplete => "off" do -%>
+    <p><label for="login">Login</label><br />
+    <input name="login" size="20" maxlength="40" value="<%= @login %>"/></p>
+
+    <p><label for="password">Password</label><br/>
+    <input name="password" type="password" size="20" maxlength="40" /></p>
+
+    <p><input type="submit" value="Log In" /></p>
+  <% end -%>
+</div>

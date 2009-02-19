@@ -1,0 +1,23 @@
+
+<h2>Users</h2>
+
+<div id="menu">
+  <a href="<%= new_user_url %>">Add user</a> |
+  <span class="small bold">Admins in bold.</span>
+</div>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Login</th>
+    <th></th>
+  </tr>
+  <% for user in @users %>
+    <tr <%= "class='bold'" if user.is_admin? %>>
+      <td><%=h user.full_name %></td> 
+      <td><%=h user.login %></td>
+      <td class="normal"><a href="<%= edit_user_path(user) %>">edit</a></td>
+      </tr>
+  <% end %>
+</table>
+

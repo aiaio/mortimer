@@ -1,0 +1,119 @@
+= mortimer
+
+A secure, multi-user password management app. 
+
+== DESCRIPTION:
+
+mortimer is a password app that supports multiple users and basic permissions. The encryption uses
+public key cryptography so that even if the database or the application itself is compromised, 
+the stored passwords remain useless to an attacker.
+
+Admin users have permission to all password entries on the system. Thus, it is important to keep admin users
+to a minimum. Users may be given permission to root-level groups and any groups one level deep. This should provide granular enough permissions for general use.
+
+== ENCRYPTION:
+
+mortimer uses asymmetric encryption on the user level.  It work like so:
+
+Imagine that we need to store a shared password, such as the password to an e-commerce admin.
+
+Now, we need to give Tom access to that password, so we add him to the system.  
+
+A unique public and private key will be generated for Tom.  Tom's public key is used to 
+encrypt any password for which he is granted access.  Tom's private key is stored, symetrically
+encrypted using his login password.
+
+So, when we give Tom access to the e-commerce admin, Tom's public key is used to 
+generate a uniquely-encrypted version of the password, just for Tom. 
+
+When Tom goes to view the password, the system decrypts Tom's private key with his login password.
+The decrypted private key can then be used to decrypt Tom's version of the e-commerce admin password.
+
+So, if ten users have access to a given password, then ten uniquely-encrypted copies of that password
+are stored on the system.  One benefit of this method is that, if the password changes, the password
+is re-encrypted for each user, using each user's public key. This means that it's easy for changes in password
+entries to be reflected for each user while maintaining completely siloed user password permissions.
+
+
+==INSTALL:
+
+=== TEST THE VAULT
+
+Before deploying mortimer to production, install it locally, and run it in development mode.
+
+=== CONFIGURATION
+
+Security configuration exists in:
+
+  config/environment.rb (session key/secret)
+  config/initializers/security.rb
+  config/initializers/site_keys.rb
+
+Be sure to configure these to your liking. It is especially important to add unique site keys
+for the encryption of user passwords. This can be done automatically with:
+
+  rake auth:gen:site_key
+
+=== SETUP
+ 
+After migrating the database, run:
+
+  rake setup
+
+The setup program will create a root user and an initial admin user.  The root user is a kind of 
+back door; while you never log in as root, the root user will have access to every password on the
+system.
+
+The setup task will write the root user's private key to a file called "root_key.rsa" in the app's
+top-level folder. YOU MUST REMOVE THIS FILE AND STORE IT IN A SAFE PLACE.  Should you ever be
+locked out of the system, the root key will allow you to decrypt any password in the database.
+
+Start a web server, and log in as the admin user.  You can now add users and passwords.  Users can
+be made into admins, which basically gives them free reign (not recommended); non-admin users can also be given
+read or write access to any password group.
+
+Note: Since private keys are encrypted using user passwords, it's important to choose
+good passwords. By default, the app requires passwords of at least eight characters, with
+at least one of these being an upper-case letter, and at least two non-word/number characters.
+
+=== DOCUMENTATIOIN
+
+This app is fairly well-documented. To view the RDoc, run
+
+  rake doc:app
+
+and check the doc folder.
+
+=== LOGGING
+
+mortimer logs all security exceptions to the main log file.
+
+  more production.log | grep 'Security' 
+
+== SECURITY PRECAUTIONS
+
+1. In a production situation, this app must be run over SSL.
+
+2. mortimer probably shouldn't be exposed to the Internet.  We use it on an internal network only.
+
+3. We're comfortable storing sessions in a cookie, though more paranoid options are available. 
+
+== DEVELOPMENT AND CONTRIBUTIONS:
+
+Note that this is an initial release. Expect regular improvements.
+
+We certainly welcome any improvements to mortimer, particularly security patches.
+
+== TESTS
+
+mortimer features a fairly comprehensive test suite using Shoulda. To run the tests:
+
+  rake test
+
+== AUTHOR & LICENCE
+
+mortimer is licensed under a modified MIT licence. See LICENCE.txt.
+
+mortimer was written by Kyle Banker, based on a idea by Bart Grantham and guided by Alex Schmelkin and Joshua Rusch.
+
+Copyright 2009 Alexander Interactive, Inc.

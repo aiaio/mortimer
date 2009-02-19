@@ -1,0 +1,21 @@
+<div id="permissions">
+  <h2 class="space_out">Permissions</h2>
+
+  <% unless Group.non_permitted_for_user(@user.groups).blank? %>
+
+    <% form_remote_tag :url => permissions_url(:user_id => @user.id), :update => "permissions", 
+      :html => {:method => :post} do %>
+      <%= render :partial => "/permissions/form" %>
+      <input type="submit" value="Add permission" />
+    <% end %>
+
+  <% end %>
+
+  <ul id="permission_list">
+    <% if @user.permissions.blank? %>
+      <strong>This user currently has no permissions.</strong>
+    <% else %>
+      <%= render :partial => "/permissions/permission", :collection => @user.permissions %>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,35 @@
+<dl>
+  <dt>First name:</dt>
+  <dd>
+    <input name="user[first_name]" value="<%= @user.first_name %>" size="20" maxlength="100"/>
+  </dd>
+
+  <dt>Last name:</dt>
+  <dd>
+    <input name="user[last_name]" value="<%= @user.last_name %>" size="20" maxlength="100"/>
+  </dd>
+
+  <dt>Login:</dt>
+  <dd>
+    <input name="user[login]" value="<%= @user.login %>" size="20" maxlength="40"/>
+  </dd>
+
+  <dt>Email:</dt>
+  <dd>
+    <input name="user[email]" value="<%= @user.email %>" size="20" maxlength="100"/>
+  </dd>
+
+  <% if controller.action_name == "edit" && current_user.is_admin? && @user != current_user %>
+    <%= link_to "Reset password", user_url(@user) + "/reset_password", :method => "post" %>
+  <% else %>  
+  <dt>Password:</dt>
+  <dd>
+    <input type="password" name="user[password]" value="<%= @user.password %>" size="20" maxlength="40"/>
+  </dd>
+
+  <dt>Password again:</dt>
+  <dd>
+    <input type="password" name="user[password_confirmation]" value="<%= @user.password_confirmation %>" size="20" maxlength="40"/>
+  </dd>
+  <% end %>  
+</dl>

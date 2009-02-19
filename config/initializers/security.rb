@@ -1,0 +1,1 @@
+SESSION_EXPIRE_INTERVAL = 5.minutes 
