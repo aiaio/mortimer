@@ -1,6 +1,6 @@
 = mortimer
 
-A secure, multi-user password management app. 
+A secure, multi-user password management apps.
 
 == DESCRIPTION:
 
