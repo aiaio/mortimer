@@ -1,16 +1,32 @@
-<h2>Passwords</h2>
-
-<% if current_user.is_admin? %>
-<div id="menu">
-  <% unless @groups.blank? %>
-  <a href="<%= new_entry_url %>">Add entry</a> |
-  <% end %>  
-  <a href="<%= new_group_url %>">Add group</a>  
+<!-- #content_body -->
+<div id="content_body">
+	<h1>Passwords</h1>
+	<%= render :partial => "groups/group.html.erb", :locals => {:groups => @groups, :level => 0} %>
 </div>
-<% end %>
+<!-- /#content_body -->
 
 <% if @groups.blank? && !current_user.is_admin? %>
   <p><strong>You currently have no permissions. Please contact a system administrator for help.</strong></p>
-<% else %>  
-  <%= render :partial => "groups/group.html.erb", :locals => {:groups => @groups, :level => 0} %>
+<% else %> 
+	<!-- #sidebar -->
+	<div id="sidebar">
+		<% if current_user.is_admin? %>
+		<!-- .module -->
+		<div class="module">
+			<h2>Admin</h2>
+			<div id="menu" class="module_box">
+				<div class="module_content">
+					<ul class="listing_common">
+						<% unless @groups.blank? %>
+						<li><a href="<%= new_entry_url %>" class="icon add">Add Entry</a></li>
+						<% end %>  
+						<li class="last"><a href="<%= new_group_url %>" class="icon add">Add Group</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /.module -->
+		<% end %>
+	</div>
+	<!-- /#sidebar -->
 <% end %>

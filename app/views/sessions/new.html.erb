@@ -1,17 +1,19 @@
-<div class="login">
-  <h1>Log In</h1>
-
-  <% if flash[:notice] %>
-    <p><%= flash[:notice] %></p>
-  <% end %>
-
-  <% form_tag session_path, :autocomplete => "off" do -%>
-    <p><label for="login">Login</label><br />
-    <input name="login" size="20" maxlength="40" value="<%= @login %>"/></p>
-
-    <p><label for="password">Password</label><br/>
-    <input name="password" type="password" size="20" maxlength="40" /></p>
-
-    <p><input type="submit" value="Log In" /></p>
-  <% end -%>
-</div>
+<% form_tag session_path do -%>
+	<fieldset class="common">
+		<legend class="hidden"><span class="hidden">Login Form</span></legend>
+		<div class="field text">
+			<label for="login">Username</label>
+			<input id="login" name="login" maxlength="40" value="<%= @login %>" tabindex="1" />
+		</div>
+		<div class="field text">
+			<label for="password">Password</label>
+			<input id="password" name="password" type="password" maxlength="40" tabindex="2" />
+		</div>
+		<div class="clear">
+			<button class="btn_login" type="submit">Login</button>
+			<% if flash[:notice] %>
+			<p class="msg_system"><%= flash[:notice] %></p>
+			<% end %>
+		</div>
+	</fieldset>
+<% end -%>

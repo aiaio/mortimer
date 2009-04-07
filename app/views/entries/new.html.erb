@@ -1,12 +1,12 @@
-<h2>New entry</h2>
+<h1>New Entry</h1>
 
-<% form_tag entries_url, :autocomplete => "off" do %>
+<% form_tag entries_url do %>
   <%= error_messages_for :entry %>
   <%= render :partial => "form" %>
-  <p>
-    <input type="submit" value="Create" />
-    |
-    <a href="<%= home_path %>" class="cancel">Cancel</a>
-  </p>
+  
+	<div class="clear">
+		<button type="submit" class="btn_create">Create</button>
+		<a href="<%= home_path %>" class="btn_cancel cancel">Cancel</a>
+	</div>
 <% end %>
 

@@ -1,14 +1,16 @@
-<dl>
-  <dt>Name:</dt>
-  <dd>
-    <input name="group[title]" value="<%= @group.title %>" size='20' maxlength='40'/>
-  </dd>
+<fieldset class="common">
+	<legend class="hidden"><span class="hidden">Create Group Form</span></legend>
+	
+	<div class="field text">
+		<label for="group_title">Name:</label>
+		<input id="group_title" name="group[title]" value="<%= @group.title %>" size='20' maxlength='40' />
+	</div>
 
-  <dt>Parent Group:</dt>
-  <dd>
-    <select name="group[parent_id]">
-      <%= options_for_select @groups, @group.parent_id %>
-    </select>  
-  </dd>
-
-</dl>
+	<div class="field">
+		<label for="group_parent">Parent Group:</label>
+		<select id="group_parent" name="group[parent_id]">
+			<%= options_for_select @groups, @group.parent_id %>
+		</select>  
+	</div>
+  
+</fieldset>

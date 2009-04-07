@@ -1,0 +1,49 @@
+@import url("reset.css");
+
+body {
+	font-family: arial,helvetica,sans-serif;
+	font-size: 16px;
+	line-height: 18px;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	background: #E5E5E5;
+	color: #000;
+}
+
+.login {
+	width: 400px;
+	padding: 25px 15px 15px 15px;
+	margin: 200px auto;
+	text-align: left;
+	background: #fff;
+	border: 10px solid #CCC;
+}
+
+.login h1 {
+	font-family: georgia, serif;
+	font-size: 20px;
+	font-weight: normal;
+	margin-bottom: 1em;
+	color: #000;	
+}
+
+.login p {
+	margin-bottom: 1em;
+}
+
+.login label {
+	display: block;
+	float: left;
+	width: 80px; 
+}
+
+.login input.text {
+	width: 300px;
+	padding: 2px;
+	font-size: 14px;
+}
+
+.login input.submit {
+	margin-left: 75px;
+}

@@ -1,20 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta http-equiv="imagetoolbar" content="no" />
-    
-    <title>mortimer</title>
-    
-    <meta name="robots" content="noindex,nofollow" />
-    
-    <%= stylesheet_link_tag "session.css" %>
-    
-    <%= javascript_include_tag :defaults %>
-    <%= javascript_include_tag "application.js" %>
-</head>
-<body>
-  <%= yield %>
-</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+	<head>
+		<meta http-equiv="Content-Type" content="Content-type:text/html; charset=utf-8" />	
+		<meta http-equiv="imagetoolbar" content="no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="Author" content="Alexander Interactive www.alexanderinteractive.com" />  
+		<meta name="Classification" content="" /> 
+		<meta name="revisit-after" content="30 days" />
+		<meta name="copyright" content="Copyright 2009 Alexander Interactive" />
+		<meta name="distribution" content="global" />
+		<meta name="language" content="English" /> 
+		<meta name="robots" content="noindex,nofollow" />
+		<title>mortimer | login</title>
+		
+		<%= stylesheet_link_tag "reset.css" %>
+		<%= stylesheet_link_tag "base.css" %>
+		<%= stylesheet_link_tag "login.css" %>
+		
+		<%= javascript_include_tag :defaults %>
+		<%= javascript_include_tag "application.js" %>
+	</head>
+	<body>
+		<!-- #container -->
+		<div id="container">
+			<!-- #wrapper -->
+			<div id="wrapper">
+				<!-- #header -->
+				<div id="header">
+					<a href="#" id="logo">Mortimer</a>
+				</div>
+				<!-- /#header -->
+				
+				<!-- #content -->
+				<div id="content">
+					<!-- #content_main -->
+					<div id="content_main">
+						<%= yield %>
+					</div>
+					<!-- /#content_main -->
+				</div>
+				<!-- /#content -->
+				
+				<!-- #footer -->
+				<div id="footer" class="clear">
+					<!-- #footer_content -->
+					<div id="footer_content" class="clear">
+						<a href="#">About Mortimer</a>
+						<a id="logo_ai" href="http://www.alexanderinteractive.com" rel="external" title="Developed by Alexander Interactive">Alexander Interactive</a>
+					</div>
+				</div>
+				<!-- /#footer -->
+				
+			</div>
+			<!-- /#wrapper -->
+		</div>
+		<!-- /#container -->
+	</body>
 </html>

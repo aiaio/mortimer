@@ -1,0 +1,78 @@
+/*----------------------------------------------------------------------------------------
+login.css
+----------------------------------------------------------------------------------------*/
+
+#container #wrapper { padding: 0 74px; }
+
+/* #logo
+----------------------------------------------------------------------------------------*/
+#logo {
+	background-image: url(/images/logo/logo_lrg.png);
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/logo/logo_lrg.png', sizingMethod='image');
+	_background: none;
+	width: 494px;
+	height: 135px;
+	top: 0
+}
+
+/* #header
+----------------------------------------------------------------------------------------*/
+#header { padding: 40px 0 0 25px; }
+
+/* #content
+----------------------------------------------------------------------------------------*/
+#content {
+	height: 390px;
+	background: url(/images/bg/bg_canvas_login.png) no-repeat left top;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/bg/bg_canvas_login.png', sizingMethod='image');
+	_background: none;
+	margin-bottom: 0;
+}	
+	#content #content_main { padding: 50px 62px 50px 62px; }
+
+/* #footer
+----------------------------------------------------------------------------------------*/
+#footer { padding: 0 15px; }
+
+/* fieldset.common
+----------------------------------------------------------------------------------------*/
+fieldset.common {}	
+	fieldset.common label {
+		color: #fff;
+		font-size: 2.2em;
+		filter:alpha(opacity=80);
+		-moz-opacity:0.8;
+		-khtml-opacity: 0.8;
+		opacity: 0.8;
+		margin: 0 0 10px 0;
+	}
+	fieldset.common input {
+		font-size: 3.3em;
+		border-color: #d7d5d5;
+		padding: 13px 16px;
+		margin: 0 0 18px 0;
+		width: 668px;
+	}
+	
+/* buttons
+----------------------------------------------------------------------------------------*/
+.btn_login {
+	display: block;
+	border: 0;
+	background: url(/images/btn/btn_login.gif) no-repeat left bottom;
+	height: 58px;
+	width: 125px;
+	text-indent: -1000em;
+	float: left;
+}
+	.btn_login:hover { background-position: left top; }
+	
+/* .msg_system
+----------------------------------------------------------------------------------------*/
+.msg_system {
+	float: right;
+	font-size: 2.0em;
+	color: #ea4b4b;
+	line-height: 1;
+	margin: 18px 5px 0 0;
+}

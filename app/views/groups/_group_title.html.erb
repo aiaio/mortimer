@@ -1,10 +1,11 @@
-<% if group.has_children_or_entries? %>
-<a href='javascript:void(0);' class='slideHandle'> + </a>  
-<% end %>
 
-<span class='group_title'><%= group.title %></span> 
+	<a href="javascript:void(0);" class="slideHandle <% if group.has_children_or_entries? %>toggle<% end %>"><%= group.title %></a>  
 
-<% if group.allows_write_access_for?(current_user) %>
-  <span class='edit'>(<a href="<%= edit_group_url(group) %>">edit</a>)</span>
-<% end %>
+	<!--
+	<em>10 Projects</em>
+	-->
+	
+	<% if group.allows_write_access_for?(current_user) %>
+	  <a href="<%= edit_group_url(group) %>" class="edit">edit</a>
+	<% end %>
 

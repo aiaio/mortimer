@@ -1,5 +1,6 @@
-/* v1.0 | 20080212 */
-
+/*----------------------------------------------------------------------------------------
+reset.css
+----------------------------------------------------------------------------------------*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -13,40 +14,173 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	padding: 0;
 	border: 0;
 	outline: 0;
+	background: transparent;
+	text-align: left; 
 	font-size: 100%;
 	vertical-align: baseline;
-	background: transparent;
 }
+
+/* css3 fix to force vertical scrollbar (deactivated by default) at 
+all times to prevent page shift in mozilla (2+) and safari (3+)
+----------------------------------------------------------------------------------------*/
+html {  overflow-y: scroll; }
+
 body {
-	line-height: 1;
+	font-size: 62.5%;
+	font-family: arial, verdana, helvetica, georgia, 'Lucida Grande', 'Lucida Sans Unicode', 'Trebuchet MS', 'Arial Black', 'Courier New', 'Times New Roman', 'Times', sans-serif;
+	line-height: 1.35;
+	height: 100%;
+	text-align: center;
 }
-ol, ul {
-	list-style: none;
+
+/* common layout elements
+----------------------------------------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6 { 
+	line-height: normal;
+	font-weight: normal; 
 }
-blockquote, q {
-	quotes: none;
+
+.hide { display: none; }
+/* Define in print.css */
+.noPrint {}
+
+ol, ul  { list-style: none; }
+
+a, button { 
+	cursor: pointer;
+	text-decoration: none;
 }
+a:link, a:visited, a:hover, a:target, a:active {}
+/* Feature for MOS - Accesskeys */
+a[accesskey]:after { content: " (" attr(accesskey) ") "; }
+
+img { display: block; }
+
+ins { text-decoration: none; }
+del { text-decoration: line-through; }
+
+address { font-style: normal; }
+
+blockquote, q { quotes: none; }
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
 
-/* remember to define focus styles! */
-:focus {
-	outline: 0;
-}
+object, embed { display: block; }
 
-/* remember to highlight inserts somehow! */
-ins {
-	text-decoration: none;
-}
-del {
-	text-decoration: line-through;
-}
+/* form elements
+----------------------------------------------------------------------------------------*/
+fieldset { position: relative; }
+	legend { 
+		*position: relative;
+		*margin-left: -.63em;  
+	}
+	
+	label { cursor: default; }
+	
+	select, input, texarea, button, textarea { 
+		font: 120%/normal arial, sans-serif;	
+		resize: none;
+	}
+	input.image {
+		width: auto;
+		height: auto;
+	}
+	textarea { overflow: auto; }
+	
+	:focus { outline: 0; }
 
-/* tables still need 'cellspacing="0"' in the markup */
+/*  table Elements
+----------------------------------------------------------------------------------------*/
 table {
-	border-collapse: collapse;
+	*border-collapse: collapse;
 	border-spacing: 0;
+}
+	th { font-weight: normal;  }
+
+/*  deprecated tag (to handle CMS)
+----------------------------------------------------------------------------------------*/
+center { text-align: center; }
+
+b { font-weight: bold; }
+i { font-style: italic; }
+
+big { font-size: large; }
+small { font-size: small; }
+
+menu { list-style: none; }
+
+applet { display: block; }
+
+blink { text-decoration: blink; }
+s, strike { text-decoration: line-through; }
+u { text-decoration: underline; }
+
+/*  png ppacity fix for ie7 to remove black border
+----------------------------------------------------------------------------------------*/
+.opacity_fix {
+	*filter: alpha(opacity=0);
+	*opacity: 0;
+	*-moz-opacity: 0;
+	*position: absolute;
+	*width: 100%;
+	*height: 100%;
+}
+
+/*  iframe Fix for <select>'s bleed-through on kick-outs in ie6
+----------------------------------------------------------------------------------------*/
+.iframe_fix {
+	position: absolute;
+	z-index: 100000;/*any value*/
+	overflow: hidden;/*must have*/
+	width: 100%;/*must have for any value*/;
+}
+	.iframe_fix iframe {
+		display: none;/*sorry for IE5*/
+		display/**/: block;/*sorry for IE5*/
+		position: absolute;/*must have*/
+		top: 0;/*must have*/
+		left: 0;/*must have*/
+		z-index: -1;/*must have*/
+		filter: mask();/*must have*/
+		width: 3000px;/*must have for any big value*/
+		height: 3000px/*must have for any big value*/;
+	}
+	
+/*  general opacity style used on ajax loads
+----------------------------------------------------------------------------------------*/
+.opaque {
+	background-color: #000;
+	-moz-opacity: 0.2;
+	opacity:.20;
+	filter: alpha(opacity=20);
+}	
+	
+/*  clear fix
+----------------------------------------------------------------------------------------*/
+.clear {
+	display: block;
+	*display: inline-block;
+	_height: 1%;
+}
+.clear:after { 
+	content: "."; 
+	clear: both; 
+	display: block; 
+	visibility: hidden; 
+	height: 0; 
+	line-height: 0; 
+}
+
+/*  used for hiding contextual information for screen readers
+----------------------------------------------------------------------------------------*/
+.hidden {
+	position: absolute;
+	left: 0px;
+	top:- 500px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
 }

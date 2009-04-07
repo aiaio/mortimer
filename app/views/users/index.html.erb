@@ -1,23 +1,46 @@
-
-<h2>Users</h2>
-
-<div id="menu">
-  <a href="<%= new_user_url %>">Add user</a> |
-  <span class="small bold">Admins in bold.</span>
+<!-- #content_body -->
+<div id="content_body">
+	<h1>Users</h1>
+	
+	<table cellspacing="0" summary="This is a listing of all users within the system" class="common">
+		<caption><span class="hidden">Current Users</span></caption>
+		<colgroup>
+			<col class="col1" />
+			<col class="col2" />
+			<col class="col3" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th colspan="2">Login</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for user in @users %>
+			<tr <%= "class='admin'" if user.is_admin? %>>
+				<td class="first"><%=h user.full_name %></td> 
+				<td><%=h user.login %></td>
+				<td><a href="<%= edit_user_path(user) %>" title="edit user <%=h user.login %>">edit</a></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>	
 </div>
+<!-- /#content_body -->
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Login</th>
-    <th></th>
-  </tr>
-  <% for user in @users %>
-    <tr <%= "class='bold'" if user.is_admin? %>>
-      <td><%=h user.full_name %></td> 
-      <td><%=h user.login %></td>
-      <td class="normal"><a href="<%= edit_user_path(user) %>">edit</a></td>
-      </tr>
-  <% end %>
-</table>
 
+<!-- #sidebar -->
+<div id="sidebar">
+	<!-- .module -->
+	<div class="module">
+		<div id="menu" class="module_box">
+			<div class="module_content">
+				<ul class="listing_common">
+					<li class="last"><a href="<%= new_user_url %>" class="icon add">Add user</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /.module -->
+</div>
+<!-- /#sidebar -->

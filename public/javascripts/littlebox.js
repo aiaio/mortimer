@@ -35,6 +35,7 @@ Littlebox.prototype = {
   // and request its contents.
   createBox: function(html) {
     var box   = new Element("div", {"id": "littleBox"});
+	box.addClassName("overlay");
     var closeButton = new Element("a", {"id": "close", "class": "close", "href": "javascript:void(0);"});
     document.body.appendChild(box);
     box.innerHTML = html;

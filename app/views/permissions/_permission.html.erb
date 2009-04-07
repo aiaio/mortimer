@@ -1,6 +1,6 @@
 <li>
   <%= permission.group.title_with_parents %>
   <%= permission.mode %>
-  [<%= link_to_remote "x", :url => permission_url(permission, :user_id => @user.id), 
-    :method => :delete, :update => "permissions" %>]
+  (<%= link_to_remote "remove", :url => permission_url(permission, :user_id => @user.id), 
+    :method => :delete, :update => "permissions" %>)
 </li>

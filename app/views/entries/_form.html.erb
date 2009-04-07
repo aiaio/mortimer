@@ -1,39 +1,41 @@
-<dl>
-  <dt>Title:</dt>
-  <dd>
-    <input name="entry[title]" value="<%= @entry.title %>" size='20' maxlength='40'/>
-  </dd>
-  
-  <dt>Username:</dt>
-  <dd>
-    <input name="entry[username]" value="<%= @entry.username %>" size='20' maxlength='40'/>
-  </dd>
+<fieldset class="common">
+	<legend class="hidden"><span class="hidden">Create Entry Form</span></legend>
+	
+	<div class="field text">
+		<label for="entry_title">Title:</label>
+		<input id="entry_title" name="entry[title]" value="<%= @entry.title %>" maxlength='40' tabindex="1" />
+	</div>
+	
+	<div class="field text">
+		<label for="username">Username:</label>
+		<input id="username" name="entry[username]" value="<%= @entry.username %>" maxlength='40' tabindex="2" />
+	</div>
+	
+	<div class="field text">
+		<label for="password">Password:</label>
+		<input id="password" type="password" name="entry[password]" value="<%= @entry.password %>" maxlength='40' tabindex="3" />
+	</div>
+	
+	<div class="field text">
+		<label for="password_confirmation">Password Confirmation:</label>
+		<input type="password" id="password_confirmation" name="entry[password_confirmation]" value="<%= @entry.password_confirmation %>" maxlength='40' tabindex="4" />
+	</div>
+	
+	<div class="field text">
+		<label for="url">Url:</label>
+		<input id="url" name="entry[url]" value="<%= @entry.url %>" maxlength='40'  tabindex="5" />
+	</div>
+	
+	<div class="field text">
+		<label for="notes">Notes:</label>
+		<textarea id="notes" name="entry[notes]" cols="30" rows="30" tabindex="6"><%= @entry.notes %></textarea>
+	</div>
+	
+	<div class="field">
+		<label for="entry">Group:</label>
+		<select id="entry" name="entry[group_id]"  tabindex="7">
+		  <%= options_for_select(@groups, @entry.group_id) %>
+		</select>
+	</div>
 
-  <dt>Password:</dt>
-  <dd>
-    <input type="password" name="entry[password]" value="<%= @entry.password %>" size='20' maxlength='40'/>
-  </dd>
-  
-  <dt>Confirmation:</dt>
-  <dd>
-    <input type="password" name="entry[password_confirmation]" value="<%= @entry.password_confirmation %>" size='20' maxlength='40'/>
-  </dd>
-
-  <dt>Url:</dt>
-  <dd>
-    <input name="entry[url]" value="<%= @entry.url %>" size='20' maxlength='40'/>
-  </dd>
-
-  <dt>Notes:</dt>
-  <dd>
-    <textarea name="entry[notes]"><%= @entry.notes %></textarea>
-  </dd>
-
-  <dt>Group:</dt>
-  <dd>
-    <select name="entry[group_id]">
-      <%= options_for_select(@groups, @entry.group_id) %>
-    </select>  
-  </dd>
-
-</dl>
+</fieldset>

@@ -9,14 +9,16 @@ Blinder.prototype = {
   },
 
   slider: function(el) {
+	this.handle.toggleClassName("active");
     this.handle.siblings().each(function(sibling){
 			if(sibling.hasClassName('slideable'))	sibling.toggle();  									
 		});
+		/*
 		if (this.handle.innerHTML.include("+"))
 		  this.handle.innerHTML = " &#8210; ";
 		else
 		  this.handle.innerHTML = " + ";
-
+		*/
 	}
 }
 

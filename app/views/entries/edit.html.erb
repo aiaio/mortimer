@@ -1,18 +1,40 @@
-<h2>Edit entry</h2>
+<h1>Edit Entry</h1>
 
+<!-- #content_body -->
+<div id="content_body">
 <%= error_messages_for :entry %>
 
 <% form_tag entry_url(@entry), :method => "put" do %>
 
-  <%= render :partial => "form" %>
+	<%= render :partial => "form" %>
 
-  <div class="small">Note: leave password blank if you don't want to update it.</div>
-  <input type="submit" value="Update" />
-  |
-  <a href="<%= home_path %>" class="cancel">Cancel</a>
-  |
-  <%= link_to "Delete this entry", entry_path(@entry), :method => "delete", 
-    :class => "destroy", :confirm => "Are you sure?" %>
+	<div class="message">
+		<p><em>Note:</em> Leave password blank if you don't want to update it.</p>
+	</div>
+
+	<div class="clear">
+		<button type="submit" class="btn_update">Update</button>
+		<a href="<%= home_path %>" class="btn_cancel cancel">Cancel</a>
+	</div>
 
 <% end %>
+</div>
+<!-- /#content_body -->
+
+<!-- #sidebar -->
+<div id="sidebar">
+	<!-- .module -->
+	<div class="module">
+		<div id="menu" class="module_box">
+			<div class="module_content">
+				<ul class="listing_common">
+					<li><%= link_to "Delete this entry", entry_path(@entry), :method => "delete", 
+					:class => "destroy", :confirm => "Are you sure?" %></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /.module -->
+</div>
+<!-- /#sidebar -->
 

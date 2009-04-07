@@ -1,35 +1,38 @@
-<dl>
-  <dt>First name:</dt>
-  <dd>
-    <input name="user[first_name]" value="<%= @user.first_name %>" size="20" maxlength="100"/>
-  </dd>
+<fieldset class="common">
+	<legend class="hidden"><span class="hidden">User Edit Form</span></legend>
+	<div class="field text">
+		<label for="first_name">First name:</label>
+		<input id="first_name" name="user[first_name]" value="<%= @user.first_name %>" size="20" maxlength="100" tabindex="1" />
+	</div>
+  
+	<div class="field text">
+		<label for="last_name">Last name:</label>
+		<input id="last_name" name="user[last_name]" value="<%= @user.last_name %>" size="20" maxlength="100" tabindex="2" />
+	</div>
 
-  <dt>Last name:</dt>
-  <dd>
-    <input name="user[last_name]" value="<%= @user.last_name %>" size="20" maxlength="100"/>
-  </dd>
+	<div class="field text">
+		<label for="login">Login:</label>
+		<input id="login" name="user[login]" value="<%= @user.login %>" size="20" maxlength="40" tabindex="3" />
+	</div>
 
-  <dt>Login:</dt>
-  <dd>
-    <input name="user[login]" value="<%= @user.login %>" size="20" maxlength="40"/>
-  </dd>
+	<div class="field text">
+		<label for="email">Email:</label>
+		<input id="email" name="user[email]" value="<%= @user.email %>" size="20" maxlength="100" tabindex="4" />
+	</div>
 
-  <dt>Email:</dt>
-  <dd>
-    <input name="user[email]" value="<%= @user.email %>" size="20" maxlength="100"/>
-  </dd>
+	<% if controller.action_name == "edit" && current_user.is_admin? && @user != current_user %>
+		<!-- <%= link_to "Reset password", user_url(@user) + "/reset_password", :method => "post" %> -->
+	<% else %>
 
-  <% if controller.action_name == "edit" && current_user.is_admin? && @user != current_user %>
-    <%= link_to "Reset password", user_url(@user) + "/reset_password", :method => "post" %>
-  <% else %>  
-  <dt>Password:</dt>
-  <dd>
-    <input type="password" name="user[password]" value="<%= @user.password %>" size="20" maxlength="40"/>
-  </dd>
+	<div class="field text">
+	  <label for="password">Password:</label>
+	  <input type="password" id="password" name="user[password]" value="<%= @user.password %>" maxlength="40" tabindex="5" />
+	</div>
 
-  <dt>Password again:</dt>
-  <dd>
-    <input type="password" name="user[password_confirmation]" value="<%= @user.password_confirmation %>" size="20" maxlength="40"/>
-  </dd>
+	<div class="field text">
+	  <label for="password_confirmation">Password again:</label>
+	  <input type="password" id="password_confirmation" name="user[password_confirmation]" value="<%= @user.password_confirmation %>" maxlength="40" tabindex="6" />
+	</div>
+  
   <% end %>  
-</dl>
+</fieldset>

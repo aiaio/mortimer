@@ -1,33 +1,40 @@
-<div id="boxmenu">
+<!-- .overlay_content -->
+<div class="overlay_content">
+	<div id="boxmenu">
+		<h2>
+			<%= @entry.group.title + " <em>" + @entry.title + "</em>" %>
+		
+			<% if @entry.allows_write_access_for?(current_user) %>
+			<a href="<%= edit_entry_url(@entry) %>">edit</a>
+			<% end %>
+		</h2>
+	</div>
+	
 
-<h3><%= @entry.group.title + ": " + @entry.title %></h3>
-<% if @entry.allows_write_access_for?(current_user) %>
- &nbsp;(<a href="<%= edit_entry_url(@entry) %>">edit</a>)
-<% end %>
+	
+	<dl class="clear">
+		<dt>Title</dt>
+		<dd><%=h @entry.title %></dd>
+
+		<dt>Username</dt>
+		<dd><%=h @entry.username %></dd>
+
+		<dt>Password</dt>
+		<dd id="password_container"><a href="javascript:void(0);">View</a></dd>
+
+		<% unless @entry.url.blank? %>
+		<dt>Url</dt>
+		<dd><a href="<%=h @entry.url %>" target="target-new"><%=h @entry.url %></a></dd>
+		<% end %>
+
+		<% unless @entry.notes.blank? %>
+		<dt>Notes:</dt>
+		<dd><%=h @entry.notes %></dd>
+		<% end %>
+		
+		<span class="hidden"><input value="<%= @entry.password %>"  id="hidden_password" class="hidden" /></span>
+	</dl>
+
+	<p>[Ctrl-C] or [Cmd-C] will copy the password to the clipboard.</p>
+	<p>Click outside the box to close.</p>
 </div>
-<dl>
-
-  <dt>Title</dt>
-  <dd><%=h @entry.title %></dd>
-
-  <dt>Username</dt>
-  <dd><%=h @entry.username %></dd>
-
-  <dt>Password</dt>
-  <dd id="password_container"><a href="javascript:void(0);">View</a></dd>
-  
-  <% unless @entry.url.blank? %>
-  <dt>Url</dt>
-  <dd><a href="<%=h @entry.url %>" target="target-new"><%=h @entry.url %></a></dd>
-  <% end %>
-
-  <% unless @entry.notes.blank? %>
-    <dt>Notes:</dt>
-    <dd><%=h @entry.notes %></dd>
-  <% end %>
-
-  <input value="<%= @entry.password %>" class="microscopic" id="hidden_password" />
-</dl>
-
-<p>[Ctrl-C] or [Cmd-C] will copy the password to the clipboard.</p>
-<p>Click outside the box to close.</p>

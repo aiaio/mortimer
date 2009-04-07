@@ -1,17 +1,17 @@
-<dl>
+<fieldset class="common">
+	<legend class="hidden"><span class="hidden">Edit Permissions Form</span></legend>
+	<div class="field">
+		<label for="permission">Group</label>
+		<select id="permission" name="permission[group_id]">
+		<%= options_for_select(Group.non_permitted_for_user(@user.groups)) %>
+		</select>
+	</div>
+	
+	<div class="field">
+		<label for="mode">Mode</label>
+		<select id="mode" name="permission[mode]">
+		<%= options_for_select([["Read", "READ"], ["Write", "WRITE"]]) %>
+		</select>
+	</div>
 
-  <dt>Group</dt>
-    <dd><select name="permission[group_id]">
-        <%= options_for_select(Group.non_permitted_for_user(@user.groups)) %>
-        </select>
-    </dd>
-
-  <dt>Mode</dt>
-    <dd><select name="permission[mode]">
-        <%= options_for_select([["Read", "READ"], ["Write", "WRITE"]]) %>
-        </select>
-    </dd>
-
-</dl>
-
-
+</fieldset>

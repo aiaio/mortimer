@@ -1,33 +1,79 @@
-<h2><%= @user == current_user ? "#{@user.full_name}'s Account" : "Editing #{@user.full_name}" %></h2>
 
-<%= error_messages_for :user %>
+	<h1><%= @user == current_user ? "Editing #{@user.full_name}" : "Editing #{@user.full_name}" %></h1>
+	
+	<!-- #content_body -->
+	<div id="content_body">
+	<%= error_messages_for :user %>
 
-<% form_tag user_path(@user), :method => "put" do %>
+	<div id="edit_user">
 
-  <%= render :partial => "form" %>
-  <% if @user == current_user %>
-  <div class="small">Note: leave password blank if you don't want to update it.</div>
-  <div class="small">Passwords must be at least eight characters long, containing a minimum of one capital letter and two non-word characters.</div>
-  <% end %>
+		<ul class="toggle clear">
+			<li class="active"><a href="#"><span>Edit Account</span></a></li>
+			<% if current_user.is_admin? && !@user.is_admin? %>
+			<li><a href="#"><span>Permissions</span></a></li>
+			<% end %>
+		</ul>
+		
+		<div class="tab_content">
+			<% form_tag user_path(@user), :method => "put" do %>
 
-  <input type="submit" value="Update" /> | 
+				<%= render :partial => "form" %>
 
-  <% if current_user.is_admin? && @user != current_user %>
-    <a href="<%= users_path %>">Cancel</a>  
-  |  
-  <%= link_to "Remove this user", @user, :confirm => "Are you sure?", 
-    :method => :delete, :class => "destroy" %>
-  |
-  <%= link_to admin_toggle_text(@user) + " Admin Rights", user_path(@user) + "/toggle_admin", 
-  :confirm => "Are you sure you want to #{admin_toggle_text(@user).upcase + " Admin Rights"}?",
-    :method => :post, :class => "destroy" %>
-  <% else %>
-    <a href="<%= home_path %>">Cancel</a>  
-  <% end %>
+				<% if @user == current_user %>
+				<div class="message">
+					<p><em>Note:</em> Leave password blank if you don't want to update it.</p>
+					<p>Passwords must be at least eight characters long, containing a minimum of one capital letter and two non-word characters.</p>
+				</div>
+				<% end %>
 
-<% end %>
+				<div class="clear">
+					<button type="submit" class="btn_update">Update</button>
 
-<% if current_user.is_admin? && !@user.is_admin? %>
-  <%= render :partial => "/permissions/menu" %>
-<% end %>
+					<% if current_user.is_admin? && @user != current_user %>
+					<a href="<%= users_path %>" class="btn_cancel">Cancel</a>
+
+					<% else %>
+					<a href="<%= home_path %>" class="btn_cancel">Cancel</a>
+					<% end %>
+				</div>
+
+			<% end %>
+		</div>
+
+		<% if current_user.is_admin? && !@user.is_admin? %>
+		<div class="tab_content">
+			<%= render :partial => "/permissions/menu" %>
+		</div>
+		<% end %>
+	</div>
+</div>
+<!-- /#content_body -->
+
+<% if current_user.is_admin? && @user != current_user %>
+<!-- #sidebar -->
+<div id="sidebar">
+	<!-- .module -->
+	<div class="module">
+		<h2>Admin</h2>
+		<div id="menu" class="module_box">
+			<div class="module_content">
+				<ul class="listing_common">
+						<% if controller.action_name == "edit" && current_user.is_admin? && @user != current_user %>
+						<li><%= link_to "Reset password", user_url(@user) + "/reset_password", :method => "post", :class =>"icon reset" %></li>
+						<% end %>				
+				
+						<li><%= link_to "Remove this User", @user, :confirm => "Are you sure?", 
+						:method => :delete, :class => "destroy icon remove" %></li>
+						
+						<li class="last"><%= link_to admin_toggle_text(@user) + " Admin Rights", user_path(@user) + "/toggle_admin", 
+						:confirm => "Are you sure you want to #{admin_toggle_text(@user).upcase + " Admin Rights"}?",
+						:method => :post, :class => "destroy icon grant" %></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /.module -->
+</div>
+<!-- /#sidebar -->
+	<% end %>
 
