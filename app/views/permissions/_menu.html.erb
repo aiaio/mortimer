@@ -1,22 +1,28 @@
 <div id="permissions">
 
   <% unless Group.non_permitted_for_user(@user.groups).blank? %>
-	<div id="form_permissions">
-		<% form_remote_tag :url => permissions_url(:user_id => @user.id), :update => "permissions", 
-		  :html => {:method => :post} do %>
-		  <%= render :partial => "/permissions/form" %>
-		  <button type="submit" class="btn_add_perms">Add Permission</button>
-		<% end %>
-	</div>
-
+		<div id="form_permissions">
+			<% form_remote_tag :url => permissions_url(:user_id => @user.id), :update => "permissions", 
+				:html => {:method => :post} do %>
+				<%= render :partial => "/permissions/form" %>
+				<% if @user.permissions.blank? %>
+					<div class="message">
+						<p><em>Note:</em> This user currently has no permissions.</p>
+					</div>
+				<% end %> 
+				<button type="submit" class="btn_add_perms">Add Permission</button>
+			<% end %>
+		</div>
   <% end %>
 
- <% if @user.permissions.blank? %>
-  <p>This user currently has no permissions.</p>
-<% else %> 
-  
-  <ul id="permission_list" class="listing_common">
-      <%= render :partial => "/permissions/permission", :collection => @user.permissions %>
-    <% end %>
-  </ul>
+	<% if @user.permissions.blank? %>
+		<p></p>
+	<% else %> 
+		<div class="message">
+			<p><em>Note:</em> This user has the following permission(s):</p>
+		</div>
+		<ul id="permission_list" class="listing_common">
+			<%= render :partial => "/permissions/permission", :collection => @user.permissions %>
+		</ul>
+  <% end %>
 </div>

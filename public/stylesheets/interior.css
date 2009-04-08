@@ -168,7 +168,7 @@ p {
 .icon {
 	display: block;
 	padding: 0 0 0 21px;
-	height: 14px;
+	height: 16px;
 	background-position: left top;
 	background-repeat: no-repeat;
 }
@@ -267,6 +267,17 @@ fieldset.common {}
 }
 .btn_cancel:hover { background-position: left top; }
 
+.btn_add_perms {
+	display: block;
+	text-indent: -1000em;
+	height: 42px;
+	width: 193px;
+	background: url(/images/btn/btn_add_permission.gif) no-repeat left bottom;
+	border: 0;
+	margin-right: 4px;
+}
+.btn_add_perms:hover { background-position: left top; }
+
 /* messaging
 ----------------------------------------------------------------------------------------*/
 .message { margin: 0 0 17px 0; }
@@ -325,25 +336,26 @@ fieldset.common {}
 ----------------------------------------------------------------------------------------*/
 .listing_toggle {}
 	.listing_toggle li {
-		font-size: 2.2em;
+		font-size: 22px;
 		border-bottom: 1px solid #e0e0e0;
 		line-height: 1;
 		padding: 0 0 14px 0;
 		margin: 0 0 14px 0;
 	}
 		.listing_toggle li em {
-			font-size: .8em;
+			font-size: 18px;
 			color: #a4a3a3;
 			margin: 0 5px 0 0;
 		}
 		.listing_toggle li ol { margin: 11px 0 15px 0; }
 			.listing_toggle li li { 
-				font-size: .75em; 
+				font-size: 17px; 
 				border-bottom: 0;
 				padding: 0 0 0 26px;
 				margin: 0 0 4px 0;
 			}
-		.listing_toggle li a.edit { font-size: .8em; }
+				.listing_toggle li li.header { font-size: 22px; }
+		.listing_toggle li a.edit { font-size: 18px; }
 		.listing_toggle li a.slideHandle { 
 			color: #000; 
 			margin: 0 5px 0 0;
@@ -352,7 +364,6 @@ fieldset.common {}
 			background: url(/images/icon/icon_toggle.gif) no-repeat left -75px;
 			padding: 0 0 0 25px;
 		}
-			.listing_toggle li li a.toggle { padding-top: 3px; }
 		#container #content .listing_toggle li a.toggle:hover { 
 			background-position: left -34px; 
 			text-decoration: none;
@@ -413,3 +424,16 @@ fieldset.common {}
 			width: 230px;
 			padding: 0 0 8px 0;
 		}
+			.overlay dl dd#password_container { width: auto; }
+#overlay  {
+      background: #000;
+      opacity: 0.3;
+      filter: alpha(opacity = 30); /* So that opacity works in IE */
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      cursor: hand;
+}
