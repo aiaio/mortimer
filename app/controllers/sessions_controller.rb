@@ -21,10 +21,12 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:login], params[:password])
     if user
       session[:pwd]     = params[:password]
+      session[:open_groups] = nil
       self.current_user = user
       redirect_back_or_default('/')
     else
       note_failed_signin
+      flash[:notice] = "Bad email or password."
       @login       = params[:login]
       render :action => 'new'
     end

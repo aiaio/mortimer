@@ -10,7 +10,7 @@ module CustomTestHelpers
   # A default password for entries.
   ENTRY_PASSWORD = "crypted!" 
   
-  private
+  protected
     # Creates a new admin user.
     def create_admin_user
       create_root_user unless root = User.root

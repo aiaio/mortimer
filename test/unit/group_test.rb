@@ -57,5 +57,27 @@ class GroupTest < ActiveSupport::TestCase
       assert_match /not empty/, @group.errors[:base]
     end  
   end  
+
+  context "Basic group traversals" do 
+    setup do 
+      @group      = Factory(:group)
+      @child      = Factory(:group, :parent => @group)
+      @grandchild = Factory(:group, :parent => @child)
+    end
+
+    should "return the empty list if no ancestors" do
+      assert_equal [], @group.ancestors
+    end
+
+    should "return parent if just one parent" do 
+      assert_equal [@group], @child.ancestors
+    end
+
+    should "return ancestors if more than one ancestor" do 
+      assert_equal [@group, @child], @grandchild.ancestors
+    end
+
+
+  end
   
 end

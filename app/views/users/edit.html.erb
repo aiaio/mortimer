@@ -1,9 +1,14 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "/javascripts/user.js" %>
+<% end %>
+
 
 	<h1><%= @user == current_user ? "Editing #{@user.full_name}" : "Editing #{@user.full_name}" %></h1>
 	
 	<!-- #content_body -->
 	<div id="content_body">
 	<%= error_messages_for :user %>
+  <%= flash[:notice] %>
 
 	<div id="edit_user">
 

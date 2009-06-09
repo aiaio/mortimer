@@ -10,8 +10,6 @@
 		</h2>
 	</div>
 	
-
-	
 	<dl class="clear">
 		<dt>Title</dt>
 		<dd><%=h @entry.title %></dd>
@@ -20,16 +18,18 @@
 		<dd><%=h @entry.username %></dd>
 
 		<dt>Password</dt>
-		<dd id="password_container"><a href="javascript:void(0);">View</a></dd>
+    <dd id="password_container">
+      <a href="javascript:void(0);">View</a>
+    </dd>
 
 		<% unless @entry.url.blank? %>
 		<dt>Url</dt>
 		<dd><a href="<%=h @entry.url %>" target="target-new"><%=h @entry.url %></a></dd>
 		<% end %>
 
-		<% unless @entry.notes.blank? %>
+		<% unless @entry.description.blank? %>
 		<dt>Notes:</dt>
-		<dd><%=h @entry.notes %></dd>
+		<dd><%=h @entry.description %></dd>
 		<% end %>
 		
 		<span class="hidden"><input value="<%= @entry.password %>"  id="hidden_password" class="hidden" /></span>

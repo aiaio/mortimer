@@ -1,3 +1,7 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "/javascripts/session.js" %>
+<% end %>
+
 <% form_tag session_path do -%>
 	<fieldset class="common">
 		<legend class="hidden"><span class="hidden">Login Form</span></legend>

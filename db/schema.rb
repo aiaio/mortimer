@@ -9,10 +9,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090123215438) do
+ActiveRecord::Schema.define(:version => 20090608205158) do
 
   create_table "crypted_attributes", :force => true do |t|
-    t.string   "data"
+    t.text     "data"
     t.integer  "encryptable_id"
     t.string   "encryptable_type"
     t.integer  "encrypter_id"

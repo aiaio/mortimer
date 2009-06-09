@@ -3,16 +3,16 @@
 	
 	<div class="field text">
 		<label for="entry_title">Title:</label>
-		<input id="entry_title" name="entry[title]" value="<%= @entry.title %>" maxlength='40' tabindex="1" />
+		<input id="entry_title" name="entry[title]" value="<%= @entry.title %>" maxlength='50' tabindex="1" />
 	</div>
 	
 	<div class="field text">
 		<label for="username">Username:</label>
-		<input id="username" name="entry[username]" value="<%= @entry.username %>" maxlength='40' tabindex="2" />
+		<input id="username" name="entry[username]" value="<%= @entry.username %>" maxlength='50' tabindex="2" />
 	</div>
 	
 	<div class="field text">
-		<label for="password">Password:</label>
+    <label for="password">Password:</label> <a href="javascript:void(0);" id="generate_password">Generate</a> 
 		<input id="password" type="password" name="entry[password]" value="<%= @entry.password %>" maxlength='40' tabindex="3" />
 	</div>
 	
@@ -23,12 +23,12 @@
 	
 	<div class="field text">
 		<label for="url">Url:</label>
-		<input id="url" name="entry[url]" value="<%= @entry.url %>" maxlength='40'  tabindex="5" />
+		<input id="url" name="entry[url]" value="<%= @entry.url %>" maxlength='50' tabindex="5" />
 	</div>
 	
 	<div class="field text">
 		<label for="notes">Notes:</label>
-		<textarea id="notes" name="entry[notes]" cols="30" rows="30" tabindex="6"><%= @entry.notes %></textarea>
+		<textarea id="notes" name="entry[description]" cols="30" rows="30" tabindex="6"><%= @entry.description %></textarea>
 	</div>
 	
 	<div class="field">

@@ -1,2 +1,2 @@
-<li><a href="<%=home_path %>"><span>Passwords</span></a></li>
-<li><a href="<%=edit_user_path(current_user) %>"><span>Account</span></a></li>
+<li <%= active_if_match(/^\/$/, /groups/) %>><a href="<%= home_path %>"><span>Passwords</span></a></li>
+<li <%= active_if_match(/password/) %>><a href="<%= edit_user_password_path %>"><span>Account</span></a></li>

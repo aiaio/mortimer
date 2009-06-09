@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
   # Capture AccessDenied, PermissionsError, and RecordNotFound.
   around_filter :rescue_exceptions 
 
+  # Warns if admin permissions become inconsistent.
+  after_filter :check_admin_permissions
+
   # Adds forgery protection; since we're using cookie-session-store,
   # the :secret parameter is unnecessary.
   protect_from_forgery
@@ -77,6 +80,12 @@ class ApplicationController < ActionController::Base
       return false unless !session[:expiry_time].nil? && session[:expiry_time] < Time.now
       logout_killing_session!
       flash[:notice] = "Your session has timed out. Please log in again."
+    end
+
+    # Temporary method to check for inconsistent admin permissions.
+    def check_admin_permissions
+      Permission.admin_permissions_consistent?
+      return true
     end
 
 end

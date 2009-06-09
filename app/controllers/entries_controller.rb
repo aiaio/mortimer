@@ -40,12 +40,14 @@ class EntriesController < ApplicationController
   # See #write_permissions_on_new.
   def new
     @entry = Entry.new(params[:entry])
+    @random_password = PasswordGenerator.random
   end
 
   # See #write_permissions_on_new.
   def create
     @entry = Entry.new(params[:entry])
     if @entry.save
+      open_entry_group(@entry)
       redirect_to groups_path
     else
       render :template => "entries/new"
@@ -93,5 +95,13 @@ class EntriesController < ApplicationController
       raise ActiveRecord::RecordNotFound if params[:entry].nil?
       @group = Group.find(params[:entry][:group_id])
       raise AccessDenied unless @group.allows_write_access_for?(current_user)
+    end
+
+    # Make sure that the groups in the list are open.
+    def open_entry_group(entry)
+      session[:open_groups] ||= {}
+      entry.group.self_and_ancestors.each do |group|
+        session[:open_groups][group.id] = true
+      end
     end
 end

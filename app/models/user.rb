@@ -113,6 +113,17 @@ class User < ActiveRecord::Base
       self.save
     end
   end
+
+  # User can view entries in this group if the user 
+  # has access to the group itself or to an ancestor of the given group.
+  def can_view_entries_for?(group)
+    group.self_and_ancestors.any? {|g| self.groups.include?(g)}
+  end
+
+  # Groups to which the user does belong
+  def permitted_groups
+    self.groups
+  end
   
   # Groups to which the user does not belong
   def non_permitted_groups

@@ -8,5 +8,14 @@ module GroupsHelper
     group_set.is_a?(Array) ? group_set.first : group_set
   end  
 
+  def hide_if_group_closed(group)
+    "style='display:none;'" unless group_open?(group)
+  end
+
+  def group_open?(group)
+    return nil unless session[:open_groups]
+    session[:open_groups][group.id]
+  end
+
 end
 

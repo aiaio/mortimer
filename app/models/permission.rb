@@ -30,6 +30,28 @@ class Permission < ActiveRecord::Base
   def allows_write?
     ["ADMIN", "WRITE"].include?(self.mode)
   end  
+
+  def allows_admin?
+    self.mode == "ADMIN"
+  end
+
+  # This is an error checking method I'm using to discover
+  # the origin of a bug I've been unable to reproduce.
+  def self.admin_permissions_consistent?
+    admin_permissions = {}
+    User.admins.each do |admin|
+      admin_permissions[admin.id] = admin.permissions.size
+    end
+
+    permissions_count = nil
+    admin_permissions.each_pair do |k, v|
+      permissions_count = v if permissions_count.nil?
+      if v != permissions_count
+        logger.warn("\n***Inconsistent Admin Permissions***\n\n#{admin_permissions.to_yaml}\n")
+        return false
+      end
+    end
+  end
     
   private
       

@@ -1,9 +1,12 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "password_generator" %>
+<% end %>
+
 <h1>New Entry</h1>
 
 <% form_tag entries_url do %>
   <%= error_messages_for :entry %>
   <%= render :partial => "form" %>
-  
 	<div class="clear">
 		<button type="submit" class="btn_create">Create</button>
 		<a href="<%= home_path %>" class="btn_cancel cancel">Cancel</a>

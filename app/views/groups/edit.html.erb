@@ -6,7 +6,9 @@
 		<%= render :partial => "form" %>
 
 		<div class="clear">
-			<button type="submit" class="btn_update">Update</button>
+      <% if @group.allows_admin_access_for?(current_user) %>
+        <button type="submit" class="btn_update">Update</button>
+      <% end %>
 			<a href="<%= home_path %>" class="btn_cancel cancel">Cancel</a>
 		</div>
 		

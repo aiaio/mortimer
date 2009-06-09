@@ -87,14 +87,20 @@ class Group < ActiveRecord::Base
   # The permitted users are linked to the 
   # root-level group only.
   def permitted_users
-    self.root.users
+    [self.users + self.root.users].flatten.uniq
   end  
 
   # Does given user have write permissions to this group?
   def allows_write_access_for?(user)
-    permission = user.permissions.detect {|p| p.group == self.root}
+    permission = user.permissions.detect {|p| p.group == self.root || p.group == self}
     permission && permission.allows_write?
   end  
+
+  # Does given user have admin permissions to this group?
+  def allows_admin_access_for?(user)
+    permission = user.permissions.detect {|p| p.group == self.root || p.group == self}
+    permission && permission.allows_admin?
+  end 
 
   # Does this group have any child groups for password entries?
   def has_children_or_entries?
@@ -105,6 +111,16 @@ class Group < ActiveRecord::Base
   def root_or_first_child?
     self.parent.nil? || self.parent.parent.nil?
   end  
+
+  # An array of all parents
+  def ancestors
+    return [] unless self.parent
+    return self.parent.ancestors.push(self.parent)
+  end
+
+  def self_and_ancestors
+    [self, self.ancestors].flatten
+  end
 
   # Label field shows a group's parents.
   #   Web Services - Google
@@ -118,7 +134,6 @@ class Group < ActiveRecord::Base
     # When a new group is created, give permission to all admins. 
     # But only if this is a root-level group. 
     def build_admin_permissions
-      return unless self.parent.nil?
       User.admins.each do |admin|
         self.permissions.build(:user_id => admin.id, :mode => "ADMIN", 
           :admin_user => self.admin_user, :admin_password => self.admin_password)

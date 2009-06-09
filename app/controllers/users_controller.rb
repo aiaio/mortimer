@@ -1,14 +1,10 @@
 class UsersController < ApplicationController
 
-  # Only admins can access index, new, create.
-  before_filter :admin_required, 
-    :only => [:index, :new, :create, :toggle_admin, :reset_password, :suspend, :unsuspend, :destroy]
-
-  # Only the owner of the record (or an admnin) has access.
-  before_filter :owner_required, :only => [:edit, :update]
+  # Only admins can access this controller.
+  before_filter :admin_required
   
   # Get the user before these actions. 
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :toggle_admin, :reset_password]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :toggle_admin, :reset_password, :edit, :update]
   
   # Display an index of all active users.
   def index

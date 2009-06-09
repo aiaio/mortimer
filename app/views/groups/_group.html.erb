@@ -1,13 +1,13 @@
 
-	<ol class="listing_toggle passwords <%= level > 0 ? "slideable\" style='display:none'" : "\"" %>>
+<ol class="listing_toggle passwords <%= level > 0 ? "slideable\" #{hide_if_group_closed(parent_group)}" : "\"" %>>
 		<% groups.each do |group_set| %>			
 		  <% group = get_group_from_set(group_set) %>			
 			<% next if level == 1 && !current_user.groups.include?(group.parent) && !current_user.groups.include?(group) %>
 			<li class="header">
 				<%= render :partial => "groups/group_title", :locals => {:group => group} %>       
 
-				<% unless group.entries.empty? %>	
-				<ol class="slideable" style="display:none;">
+				<% if !group.entries.empty? && current_user.can_view_entries_for?(group) %>	
+        <ol class="slideable" <%= hide_if_group_closed(group) %>>
 					<%= render :partial => "groups/entry", :collection => group.entries %>
 				</ol>	
 				<% end %>
@@ -15,7 +15,7 @@
 				<% if has_sub_groups?(group_set) %>
 				
 					<%= render(:partial => 'groups/group', 
-							:locals => {:groups => group_set.last, :level => (level + 1)}) %>
+           :locals => {:groups => group_set.last, :parent_group => group, :level => (level + 1)}) %>
 				
 				<% end %>
 			</li>
