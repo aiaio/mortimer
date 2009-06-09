@@ -1,30 +1,56 @@
 function selectText()
+{
+  el = $('hidden_password');
+  if (el.createTextRange) 
   {
-    el = $('hidden_password');
-    if (el.createTextRange) 
+    var oRange = el.createTextRange();
+    oRange.moveStart("character", 0);
+    oRange.moveEnd("character", el.value.length);
+    oRange.select();
+  }
+    else if (el.setSelectionRange) 
     {
-      var oRange = el.createTextRange();
-      oRange.moveStart("character", 0);
-      oRange.moveEnd("character", el.value.length);
-      oRange.select();
+            el.setSelectionRange(0, el.value.length);
     }
-      else if (el.setSelectionRange) 
-      {
-              el.setSelectionRange(0, el.value.length);
-      }
-      el.focus();
+    el.focus();
  }
 
 function observeClick() {
-   Event.observe($("password_container"), "click", function(){
-      $("password_container").innerHTML = $("hidden_password").value
-    });
+ Event.observe($("password_container"), "click", function(){
+    $("password_container").innerHTML = $("hidden_password").value
+  });
+}
 
-}
 function setupLittleBox() {
-    setTimeout("selectText()", 500);
-    setTimeout("observeClick();", 500);
+  setTimeout("selectText()", 500);
+  setTimeout("observeClick();", 500);
 }
+
+// Sets focus on first element of first form.
+var Focuser = Class.create();
+
+Focuser.prototype = {
+
+  initialize: function() {
+    var input = this.getFirstInput();
+    if(input) {
+      input.focus();
+    }
+  },
+
+   getFirstInput: function() {
+     if($$('form')) {
+       var form  = $$('form')[0].identify();
+       var input = $$('#' + form + ' input').detect(function(el) { 
+         return el.type != "hidden";
+       });
+
+       return input;
+      }
+    else
+      return null;
+  }
+};
 
 function externalLinks() {
  if (!document.getElementsByTagName) return;
@@ -69,12 +95,10 @@ Tabs.prototype = {
 }
 
 document.observe('dom:loaded', function(){
-	if($('edit_user'))
-		new Tabs('edit_user', 0);
-		
-		
 	try {
 	  document.execCommand('BackgroundImageCache', false, true);
 	} catch(e) {}
+
+  var focuser = new Focuser;
 });
 

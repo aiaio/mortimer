@@ -1,0 +1,39 @@
+
+	<h1><%= @user.full_name %></h1>
+	
+	<!-- #content_body -->
+	<div id="content_body">
+	<%= error_messages_for :user %>
+  <%= flash[:notice] %>
+
+	<div id="edit_user">
+
+    <!-- 
+		<ul class="toggle clear">
+			<li class="active"><a href="#"><span>Edit Account</span></a></li>
+			<% if current_user.is_admin? && !@user.is_admin? %>
+			<li><a href="#"><span>Permissions</span></a></li>
+			<% end %>
+		</ul>
+    -->
+		
+		<div class="tab_content active">
+			<% form_tag user_password_path, :method => "put" do %>
+
+				<%= render :partial => "form" %>
+
+				<div class="message">
+					<p>Passwords must be at least eight characters long, containing a minimum of one capital letter and two non-word characters.</p>
+				</div>
+
+				<div class="clear">
+					<button type="submit" class="btn_update">Update</button>
+
+					<a href="<%= home_path %>" class="btn_cancel">Cancel</a>
+				</div>
+		<% end %>
+		</div>
+
+	</div>
+</div>
+<!-- /#content_body -->

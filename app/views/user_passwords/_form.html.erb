@@ -1,0 +1,14 @@
+<fieldset class="common">
+	<legend class="hidden"><span class="hidden">Password Edit Form</span></legend>
+
+  <div class="field text">
+	  <label for="password">Password:</label>
+	  <input type="password" id="password" name="user[password]" value="<%= @user.password %>" maxlength="40" tabindex="5" />
+	</div>
+
+	<div class="field text">
+	  <label for="password_confirmation">Password again:</label>
+	  <input type="password" id="password_confirmation" name="user[password_confirmation]" value="<%= @user.password_confirmation %>" maxlength="40" tabindex="6" />
+	</div>
+  
+</fieldset>
