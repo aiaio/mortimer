@@ -26,7 +26,7 @@ class Entry < ActiveRecord::Base
   validates_length_of     :title, :within => 2..50
   validates_presence_of   :title
 
-  validates_length_of :description, :within => 1..52, :allow_nil => true
+  validates_length_of :description, :within => 0..52, :allow_blank => true
 
   validates_presence_of :group
   

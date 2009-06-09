@@ -1,5 +1,4 @@
 // Littlebox.  A simple overlay library.
-
 var Littlebox = Class.create();
 Littlebox.prototype = {
   initialize: function(link, callbacks) {
@@ -35,19 +34,23 @@ Littlebox.prototype = {
   // and request its contents.
   createBox: function(html) {
     var box   = new Element("div", {"id": "littleBox"});
-	box.addClassName("overlay");
+	  box.addClassName("overlay");
+
     var closeButton = new Element("a", {"id": "close", "class": "close", "href": "javascript:void(0);"});
     document.body.appendChild(box);
     box.innerHTML = html;
   },
 
-  // Show the littleBox and add a callback to resize.         
+  // Show the littleBox, add an observer to resize, and invoke any callbacks.
   showBox: function() {
-    box = $("littleBox");
+    var box = $("littleBox");
     this.adjust(box);
     Event.observe(window, "resize", this.adjust.bindAsEventListener(box));
     box.show();
-    this.callbacks[0]();
+
+    this.callbacks.each(function(callback) {
+      callback.call(this);  
+    }.bind(this));
   },
   
   // Add the big, gray overlay to the DOM.
@@ -98,12 +101,47 @@ Littlebox.prototype = {
     $("littleBox").remove();
     $("overlay").remove();
   }
+};
 
+var PasswordEntry = Class.create();
+PasswordEntry.prototype = {
+  initialize: function() {
+    this.initClickToView();
+    setTimeout(function() {
+      this.selectPasswordText();
+    }.bind(this), 500);
+  },
+
+  initClickToView: function() {
+    Event.observe($("password_container"), "click", function(){
+      $("password_container").innerHTML = $("hidden_password").value
+    });
+  },
+
+  selectPasswordText: function() {
+    var el = $('hidden_password');
+    if(el) {
+      if (el.createTextRange) {
+        var oRange = el.createTextRange();
+        oRange.moveStart("character", 0);
+        oRange.moveEnd("character", el.value.length);
+        oRange.select();
+      }
+      else if (el.setSelectionRange) {
+        el.setSelectionRange(0, el.value.length);
+      }
+
+      el.focus();
+    }
+  }
+};
+
+function initPasswordEntry() {
+  var passwordEntry = new PasswordEntry;
 }
 
 Event.observe(window, "load", function() {
   $$(".littlebox").each(function(link) {
-    new Littlebox(link, setupLittleBox);
+    new Littlebox(link, initPasswordEntry);
   });
 });
-

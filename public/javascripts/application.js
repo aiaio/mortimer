@@ -1,34 +1,5 @@
-function selectText()
-{
-  el = $('hidden_password');
-  if (el.createTextRange) 
-  {
-    var oRange = el.createTextRange();
-    oRange.moveStart("character", 0);
-    oRange.moveEnd("character", el.value.length);
-    oRange.select();
-  }
-    else if (el.setSelectionRange) 
-    {
-            el.setSelectionRange(0, el.value.length);
-    }
-    el.focus();
- }
-
-function observeClick() {
- Event.observe($("password_container"), "click", function(){
-    $("password_container").innerHTML = $("hidden_password").value
-  });
-}
-
-function setupLittleBox() {
-  setTimeout("selectText()", 500);
-  setTimeout("observeClick();", 500);
-}
-
 // Sets focus on first element of first form.
 var Focuser = Class.create();
-
 Focuser.prototype = {
 
   initialize: function() {
@@ -38,21 +9,24 @@ Focuser.prototype = {
     }
   },
 
-   getFirstInput: function() {
-     if($$('form')) {
-       var form  = $$('form')[0].identify();
-       var input = $$('#' + form + ' input').detect(function(el) { 
-         return el.type != "hidden";
-       });
+  // Finds the first non-hidden input from the first
+  // form in the page.
+  getFirstInput: function() {
+    var forms = $$('form');
+    if(forms.length > 0) {
+      var form  = forms[0].identify();
+      var input = $$('#' + form + ' input').detect(function(el) { 
+        return el.type != "hidden";
+      });
 
-       return input;
-      }
+      return input;
+    }
     else
-      return null;
+     return null;
   }
 };
 
-function externalLinks() {
+function prepareExternalLinks() {
  if (!document.getElementsByTagName) return;
  var anchors = document.getElementsByTagName("a");
  for (var i=0; i<anchors.length; i++) {
@@ -62,7 +36,6 @@ function externalLinks() {
      anchor.target = "_blank";
  }
 }
-window.onload = externalLinks;
 
 var Tabs = Class.create();
 Tabs.prototype = {
@@ -92,13 +65,14 @@ Tabs.prototype = {
 			}.bind(this);
 		}.bind(this));
 	}
-}
+};
 
 document.observe('dom:loaded', function(){
 	try {
 	  document.execCommand('BackgroundImageCache', false, true);
 	} catch(e) {}
 
+  prepareExternalLinks();
   var focuser = new Focuser;
 });
 
