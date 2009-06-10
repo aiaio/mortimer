@@ -2,10 +2,9 @@
   <%= javascript_include_tag "password_generator" %>
 <% end %>
 
-<h1>Edit Entry</h1>
+<h1>Edit Entry<%= link_to "Delete this entry", entry_path(@entry), :method => "delete", 
+					:class => "destroy icon remove", :confirm => "Are you sure?" %></h1>
 
-<!-- #content_body -->
-<div id="content_body">
 <%= error_messages_for :entry %>
 
 <% form_tag entry_url(@entry), :method => "put" do %>
@@ -16,29 +15,10 @@
 		<p><em>Note:</em> Leave password blank if you don't want to update it.</p>
 	</div>
 
-	<div class="clear">
+	<div class="buttons clear">
 		<button type="submit" class="btn_update">Update</button>
 		<a href="<%= home_path %>" class="btn_cancel cancel">Cancel</a>
 	</div>
 
 <% end %>
-</div>
-<!-- /#content_body -->
-
-<!-- #sidebar -->
-<div id="sidebar">
-	<!-- .module -->
-	<div class="module">
-		<div id="menu" class="module_box">
-			<div class="module_content">
-				<ul class="listing_common">
-					<li><%= link_to "Delete this entry", entry_path(@entry), :method => "delete", 
-					:class => "destroy", :confirm => "Are you sure?" %></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!-- /.module -->
-</div>
-<!-- /#sidebar -->
 

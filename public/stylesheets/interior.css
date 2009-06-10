@@ -8,8 +8,19 @@ h1 {
 	font-size: 3.4em;
 	color: #585757;
 	line-height: 1;
-	margin: 0 0 20px 0;
+	margin: 0 0 25px 0;
+	border-bottom: 2px solid #585757;
+	padding-bottom: 12px;
+	max-width: 565px;
 }
+	h1 span {
+		color: #919090;
+		font-size: 0.9em;
+	}
+	h1 a {
+		font-size: 0.4em;
+		margin: 10px 0 0 2px;
+	}
 h2 {
 	font-size: 2.0em;
 	line-height: 1;
@@ -21,6 +32,11 @@ p {
 	color: #585757;
 	line-height: 1.6;
 }
+	p.notice {
+		font-size: 1.5em;
+		margin-bottom: 15px;
+		color: #A60000;
+	}
 
 /* #logo
 ----------------------------------------------------------------------------------------*/
@@ -87,10 +103,6 @@ p {
 					background-position: left center;
 					text-decoration: none;
 				}
-				#nav_main ul li.active a { 
-					background-position: left top; 
-					color: #850000;
-				}
 					#nav_main ul li a span {
 						display: block;
 						float: left;
@@ -100,10 +112,16 @@ p {
 						padding: 0 28px 0 0;
 					}
 					#container #nav_main ul li a:hover span { background-position: right center; }
+				#nav_main ul li.active a { 
+					background-position: left top; 
+					color: #850000;
+				}
+					#container #nav_main ul li.active a:hover { background-position: left top; }
 					#nav_main ul li.active a span { 
 						background-position: right top; 
 						color: #850000; 
 					}
+						#container #nav_main ul li.active a:hover span { background-position: right top; }
 					
 /* #content
 ----------------------------------------------------------------------------------------*/
@@ -209,29 +227,59 @@ table.common { width: 100%;}
 fieldset.common {}
 	fieldset.common .field {
 		margin: 0 0 18px 0;
+		float: left;
 	}
 			fieldset.common .field label {
-				color: #a7a6a6;
+				color: #333333;
 				font-size: 1.9em;
-				margin: 0 0 9px 0;
+				margin: 0 0 10px 0;
+				float: left;
+				width: 165px;
+				text-align: right;
+				padding-right: 10px;
+				line-height: 1.4;
 			}
+				fieldset.common .field label em {
+					font-size: 0.7em;
+				}
 			fieldset.common .field.text input,
 			fieldset.common .field.text textarea {
-				font-size: 2.4em;
-				padding: 6px 15px;
+				font-size: 1.6em;
+				padding: 4px 10px;
 				border-color: #d7d5d5;
-				background-color: #f2f2f2;
+				background-color: #F9F9F9;
 				width: 370px;
+				letter-spacing: 1px;
+				float: left;
 			}
 			fieldset.common .field.text textarea { height: 100px; }
 			fieldset.common .field select { 
-				width: 405px; 
-				font-size: 2.4em;
+				width: 395px; 
+				font-size: 1.6em;
+				float: left;
+				margin-top: 5px;
 			}
 #form_permissions { margin: 0 0 25px 0; }
-			
+	
+	/* for forms with widths constrained by tabs and right nav
+	------------------------------------------------------------------------------------*/
+	.edit_group fieldset.common .field label,
+	.tab_content fieldset.common .field label { width: 140px; }
+	.edit_group fieldset.common .field.text input,
+	.tab_content fieldset.common .field.text input,
+	.edit_group fieldset.common .field.text textarea,
+	.tab_content fieldset.common .field.text textarea { width: 268px; }
+	.edit_group fieldset.common .field select,
+	.tab_content fieldset.common .field select { width: 290px; }
+	
 /* buttons
 ----------------------------------------------------------------------------------------*/
+.buttons {
+	margin-top: 15px;
+	padding-left: 175px;
+}
+	.edit_group .buttons,
+	.tab_content .buttons { padding-left: 150px; }
 .btn_update {
 	display: block;
 	text-indent: -1000em;
@@ -281,9 +329,14 @@ fieldset.common {}
 /* messaging
 ----------------------------------------------------------------------------------------*/
 .message { margin: 0 0 17px 0; }
-	.message p em { 
-		color: #333; 
-		font-weight: bold;
+	.message p { padding-left: 175px; }
+	.tab_content .message p { padding-left: 152px; }
+		.message p em { 
+			color: #333; 
+			font-weight: bold;
+		}
+	.tab_content #permission_list {
+		padding-left: 152px;
 	}
 	
 /* tabs
@@ -343,10 +396,13 @@ fieldset.common {}
 		margin: 0 0 14px 0;
 	}
 		.listing_toggle li em {
-			font-size: 18px;
+			font-size: 15px;
 			color: #a4a3a3;
 			margin: 0 5px 0 0;
 		}
+			.listing_toggle li em a {
+				
+			}
 		.listing_toggle li ol { margin: 11px 0 15px 0; }
 			.listing_toggle li li { 
 				font-size: 17px; 
@@ -355,10 +411,9 @@ fieldset.common {}
 				margin: 0 0 4px 0;
 			}
 				.listing_toggle li li.header { font-size: 22px; }
-		.listing_toggle li a.edit { font-size: 18px; }
+		.listing_toggle li a.edit {  }
 		.listing_toggle li a.slideHandle { 
-			color: #000; 
-			margin: 0 5px 0 0;
+			color: #333; 
 		}
 		.listing_toggle li a.toggle {
 			background: url(/images/icon/icon_toggle.gif) no-repeat left -75px;
@@ -394,12 +449,21 @@ fieldset.common {}
 		margin: 0 0 15px 0; 
 		font-size: 2.2em;
 		position: relative;
+		border-bottom: 1px solid #585757;
+		padding-bottom: 5px;
 	}
+		.overlay h2 span {
+			font-size: 0.9em;
+			color: #8A8A8A;
+		}
 		.overlay h2 em {
-			font-size: .8em;
+			font-size: 0.7em;
 			color: #a4a3a3;
 			margin: 0 4px;
 		}
+			.overlay h2 em a {
+				font-size: 1em;
+			}
 		.overlay h2 a { font-size: .7em; }
 	.overlay p {
 		font-size: 1.2em;
@@ -414,7 +478,7 @@ fieldset.common {}
 			color: #000;
 			font-size: 1.6em;	
 			float: left;
-			width: 110px;
+			width: 100px;
 			padding: 0 0 8px 0;
 		}
 		.overlay dl dd {
@@ -424,7 +488,7 @@ fieldset.common {}
 			width: 230px;
 			padding: 0 0 8px 0;
 		}
-			.overlay dl dd#password_container { width: auto; }
+			.overlay dl dd#password_container a { width: auto; }
 #overlay  {
       background: #000;
       opacity: 0.3;
@@ -437,3 +501,26 @@ fieldset.common {}
       z-index: 2;
       cursor: hand;
 }
+
+/* #errorExplanation
+----------------------------------------------------------------------------------------*/
+#errorExplanation {
+	border: 1px solid #666666;
+	background-color: #ffffe3;
+	padding: 10px;
+}
+	#errorExplanation h2 {
+		font-size: 1.7em;
+		color: #B40425;
+	}
+	#errorExplanation p {
+		margin-bottom: 10px;
+	}
+	#errorExplanation ul {
+		list-style: disc;
+	}
+		#errorExplanation ul li {
+			margin-left: 20px;
+			color: #585757;
+			font-size: 1.2em;
+		}

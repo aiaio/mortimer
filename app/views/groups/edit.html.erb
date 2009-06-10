@@ -1,18 +1,20 @@
 <!-- #content_body -->
 <div id="content_body">
 	<h1>Edit Group</h1>
-	<% form_tag group_url(@group), :method => "put" do %>
-		<%= error_messages_for :group %>
-		<%= render :partial => "form" %>
+	<div class="edit_group">
+		<% form_tag group_url(@group), :method => "put" do %>
+			<%= error_messages_for :group %>
+			<%= render :partial => "form" %>
 
-		<div class="clear">
-      <% if @group.allows_admin_access_for?(current_user) %>
-        <button type="submit" class="btn_update">Update</button>
-      <% end %>
-			<a href="<%= home_path %>" class="btn_cancel cancel">Cancel</a>
-		</div>
-		
-	<% end %>
+			<div class="buttons clear">
+				<% if @group.allows_admin_access_for?(current_user) %>
+					<button type="submit" class="btn_update">Update</button>
+				<% end %>
+				<a href="<%= home_path %>" class="btn_cancel cancel">Cancel</a>
+			</div>
+			
+		<% end %>
+	</div>
 </div>
 <!-- /#content_body -->
 

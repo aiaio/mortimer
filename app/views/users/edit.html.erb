@@ -3,12 +3,13 @@
 <% end %>
 
 
-	<h1><%= @user == current_user ? "Editing #{@user.full_name}" : "Editing #{@user.full_name}" %></h1>
+	<h1><%= @user == current_user ? "Edit | <span>#{@user.full_name}</span>" : "Edit | <span>#{@user.full_name}</span>" %></h1>
 	
 	<!-- #content_body -->
 	<div id="content_body">
 	<%= error_messages_for :user %>
-  <%= flash[:notice] %>
+  
+	<p class="notice"><%= flash[:notice] %></p>
 
 	<div id="edit_user">
 
@@ -31,7 +32,7 @@
 				</div>
 				<% end %>
 
-				<div class="clear">
+				<div class="buttons clear">
 					<button type="submit" class="btn_update">Update</button>
 
 					<% if current_user.is_admin? && @user != current_user %>

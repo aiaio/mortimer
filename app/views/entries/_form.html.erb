@@ -12,12 +12,12 @@
 	</div>
 	
 	<div class="field text">
-    <label for="password">Password:</label> <a href="javascript:void(0);" id="generate_password">Generate</a> 
+    <label for="password">Password <em>(<a href="javascript:void(0);" id="generate_password">Generate</a>)</em>:</label>  
 		<input id="password" type="password" name="entry[password]" value="<%= @entry.password %>" maxlength='40' tabindex="3" />
 	</div>
 	
 	<div class="field text">
-		<label for="password_confirmation">Password Confirmation:</label>
+		<label for="password_confirmation">Confirm Password:</label>
 		<input type="password" id="password_confirmation" name="entry[password_confirmation]" value="<%= @entry.password_confirmation %>" maxlength='40' tabindex="4" />
 	</div>
 	
