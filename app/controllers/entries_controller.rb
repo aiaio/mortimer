@@ -33,6 +33,10 @@ class EntriesController < ApplicationController
       @entry.decrypt_attributes_for(current_user, session[:pwd])
       render :template => "entries/show", :layout => false
     end
+    rescue AccessDenied, PermissionsError => exception 
+      flash[:notice] = "You don't have access to that! Attempt logged."
+      note_access_denied(exception)
+      render :text => login_url, :status => 401
   end
 
   # Before filter isn't used to check permissions because

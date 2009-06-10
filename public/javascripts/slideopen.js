@@ -9,27 +9,26 @@ Blinder.prototype = {
   slider: function(el) {
     this.handle.toggleClassName("active");
     this.handle.siblings().each(function(sibling){
-			if(sibling.hasClassName('slideable'))	sibling.toggle();  									
+			if(sibling.hasClassName('slideable'))	{
+        sibling.toggle();
+      }
 		});
     this.storeSliderSetting(); 
 	},
 
   storeSliderSetting: function() {
-    var groupId  = this.handle.id.split("_")[1];
+    var groupId   = this.handle.id.split("_")[1];
     var groupOpen = this.handle.hasClassName("active");
     var request = new Ajax.Request("/settings", {
       method: "post",
-      parameters: {id: groupId, open: groupOpen},
-      onCreate: function() {
-        console.log('');
-      }
+      parameters: {id: groupId, open: groupOpen}
     });
   }
-}
+};
 
 Event.observe(window, "load", function() {
   $$(".slideHandle").each(function(handle){
-			new Blinder(handle);
+			var blinder = new Blinder(handle);
 	});
 });
 	

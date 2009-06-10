@@ -13,21 +13,21 @@ class SubGroupPermissionsTest < ActiveSupport::TestCase
 
 	context "Creating a subgroup entry" do
     setup do 
-      @blue_group, @blue_entry = create_group_with_entry(@admin, ADMIN_PASSWORD)
+      @blue_group, @blue_entry = create_group_with_entry(@admin, CRYPTED_ADMIN_PASSWORD)
 			@square_group = Factory(:group, :parent => @blue_group)
 			@square_entry = Factory(:entry, :group  => @square_group)
     end 
 
 		should "grant the admin user access to the subgroup" do
-		  assert @square_entry.decrypt_attributes_for(@admin, ADMIN_PASSWORD)				
+		  assert @square_entry.decrypt_attributes_for(@admin, CRYPTED_ADMIN_PASSWORD)				
 			assert_equal ENTRY_PASSWORD, @square_entry.password 
 		end				
 	end
 
 	context "Several groups and subgroups with entries" do
     setup do 
-      @blue_group, @blue_entry = create_group_with_entry(@admin, ADMIN_PASSWORD)
-			@red_group, @red_entry   = create_group_with_entry(@admin, ADMIN_PASSWORD)
+      @blue_group, @blue_entry = create_group_with_entry(@admin, CRYPTED_ADMIN_PASSWORD)
+			@red_group, @red_entry   = create_group_with_entry(@admin, CRYPTED_ADMIN_PASSWORD)
 			@square_group = Factory(:group, :parent => @blue_group)
 			@square_entry = Factory(:entry, :group  => @square_group)
 			reload_activerecord_instances
@@ -37,17 +37,17 @@ class SubGroupPermissionsTest < ActiveSupport::TestCase
       setup do 
 			  @user = Factory(:user)
 				@permission = @user.permissions.create(:group => @blue_group, :mode => "READ",
-				  :admin_user => @admin, :admin_password => ADMIN_PASSWORD)
+				  :admin_user => @admin, :admin_password => CRYPTED_ADMIN_PASSWORD)
 				reload_activerecord_instances
 		  end				
 
 			should "grant permission to the root group's entry" do
-			  assert @blue_entry.decrypt_attributes_for(@user, USER_PASSWORD)				
+			  assert @blue_entry.decrypt_attributes_for(@user, CRYPTED_USER_PASSWORD)				
 				assert_equal ENTRY_PASSWORD, @blue_entry.password 
 			end    
 
 			should "grant permission to the child group's entry" do
-			  assert @square_entry.decrypt_attributes_for(@user, USER_PASSWORD)				
+			  assert @square_entry.decrypt_attributes_for(@user, CRYPTED_USER_PASSWORD)				
 				assert_equal ENTRY_PASSWORD, @square_entry.password 
 			end				
 
@@ -59,13 +59,13 @@ class SubGroupPermissionsTest < ActiveSupport::TestCase
 
 			  should "deny permission to the root group's entry" do
 		      assert_raise PermissionsError do
-			      assert @blue_entry.decrypt_attributes_for(@user, USER_PASSWORD)				
+			      assert @blue_entry.decrypt_attributes_for(@user, CRYPTED_USER_PASSWORD)				
           end
 			  end
 
 			  should "deny permission to the child group's entry" do
 			    assert_raise PermissionsError do
-			      assert @square_entry.decrypt_attributes_for(@user, USER_PASSWORD)				
+			      assert @square_entry.decrypt_attributes_for(@user, CRYPTED_USER_PASSWORD)				
           end
 			  end
 			end

@@ -19,11 +19,9 @@ class EntryTest < ActiveSupport::TestCase
   
   context "With three users, " do 
     setup do 
-      @group = Factory(:group, :admin_user => @root, :admin_password => ADMIN_PASSWORD)
-      @joe_user = Factory(:user, :password => "English@@!!", 
-                           :password_confirmation => "English@@!!")
-      @bob_user = Factory(:user, :password => "Swedish@@!!", 
-                           :password_confirmation => "Swedish@@!!")
+      @group = Factory(:group, :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD)
+      @joe_user = Factory(:user)
+      @bob_user = Factory(:user)
       @user3 = Factory(:user) 
       @new_admin = create_admin_user
     end
@@ -31,31 +29,31 @@ class EntryTest < ActiveSupport::TestCase
     context "Two of whom have permissions to the test group - " do 
       setup do 
         @joe_user.permissions.create(:group => @group, :mode => "WRITE", 
-          :admin_user => @root, :admin_password => ADMIN_PASSWORD)
+          :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD)
         @bob_user.permissions.create(:group => @group, :mode => "READ",
-          :admin_user => @root, :admin_password => ADMIN_PASSWORD)
+          :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD)
         @entry = Factory(:entry, :title => "MAIN", :group => @group)
       end
       
       should "create a password entry for the first user" do 
-        assert @entry.decrypt_attributes_for(@joe_user, "English@@!!")
+        assert @entry.decrypt_attributes_for(@joe_user, CRYPTED_USER_PASSWORD)
       end
       
       should "create a password entry for the second user" do 
-        assert @entry.decrypt_attributes_for(@bob_user, "Swedish@@!!")
+        assert @entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
       end
       
       should "create a password entry for the root user" do 
-        assert @entry.decrypt_attributes_for(@root, ADMIN_PASSWORD)
+        assert @entry.decrypt_attributes_for(@root, CRYPTED_ADMIN_PASSWORD)
       end
 
       should "create a password entry for the admin user" do 
-        assert @entry.decrypt_attributes_for(@new_admin, ADMIN_PASSWORD)
+        assert @entry.decrypt_attributes_for(@new_admin, CRYPTED_ADMIN_PASSWORD)
       end
       
       should "raise a Permissions error if the third user tries to decrypt" do 
         assert_raises ::PermissionsError do
-          @entry.decrypt_attributes_for(@user3, "Secret@@")
+          @entry.decrypt_attributes_for(@user3, CRYPTED_USER_PASSWORD)
         end
       end      
     end
@@ -67,17 +65,17 @@ class EntryTest < ActiveSupport::TestCase
       end
 
       should "grant access to admin" do 
-        @entry.decrypt_attributes_for(@admin, ADMIN_PASSWORD)
+        @entry.decrypt_attributes_for(@admin, CRYPTED_ADMIN_PASSWORD)
         assert_equal "crypted!", @entry.password       
       end
 
       should "grant access to admin 2" do
-        @entry.decrypt_attributes_for(@new_admin, ADMIN_PASSWORD)
+        @entry.decrypt_attributes_for(@new_admin, CRYPTED_ADMIN_PASSWORD)
         assert_equal "crypted!", @entry.password        
       end
 
       should "grant access to root" do
-        @entry.decrypt_attributes_for(@root, ADMIN_PASSWORD)
+        @entry.decrypt_attributes_for(@root, CRYPTED_ADMIN_PASSWORD)
         assert_equal "crypted!", @entry.password    
       end
     end
@@ -85,25 +83,25 @@ class EntryTest < ActiveSupport::TestCase
     context "Two users with access to a group" do 
       setup do 
         @joe_user.permissions.create(:group => @group, :mode => "WRITE",
-          :admin_user => @root, :admin_password => "secret@@!!")
+          :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD)
         @bob_user.permissions.create(:group => @group, :mode => "READ",
-          :admin_user => @root, :admin_password => "secret@@!!")
+          :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD)
         @entry = Factory(:entry, :title => "MAIN", :group => @group)
       end
       
       should "decrypt for the first user" do 
-        @entry.decrypt_attributes_for(@joe_user, "English@@!!")
+        @entry.decrypt_attributes_for(@joe_user, CRYPTED_USER_PASSWORD)
         assert_equal "crypted!", @entry.password
       end
       
       should "not decrypt if a bad password is entered" do 
         assert_raises PermissionsError do
-          @entry.decrypt_attributes_for(@joe_user, "wrong_pass")
+          @entry.decrypt_attributes_for(@joe_user, SessionPasswordEncryptor.encrypt("wrong_pass"))
         end
       end
       
       should "decrypt for the second user" do 
-        @entry.decrypt_attributes_for(@bob_user, "Swedish@@!!")
+        @entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
         assert_equal "crypted!", @entry.password
       end
       
@@ -114,12 +112,12 @@ class EntryTest < ActiveSupport::TestCase
         end
         
         should "decrypt for the first user" do 
-          @entry.decrypt_attributes_for(@joe_user, "English@@!!")
+          @entry.decrypt_attributes_for(@joe_user, CRYPTED_USER_PASSWORD)
           assert_equal "Vault@@@", @entry.password
         end
           
         should "decrypt for the second user" do 
-          @entry.decrypt_attributes_for(@bob_user, "Swedish@@!!")
+          @entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
           assert_equal "Vault@@@", @entry.password
         end
       end

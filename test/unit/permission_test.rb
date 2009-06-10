@@ -20,7 +20,7 @@ class PermissionTest < ActiveSupport::TestCase
       @deep_group = Factory(:group, :parent => @blue_group)
       @joe_user   = Factory(:user)
       @permission = Permission.create(:group => @red_group, :user => @joe_user, 
-        :mode => "READ", :admin_user => @root, :admin_password => ADMIN_PASSWORD)
+        :mode => "READ", :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD)
     end
 
     should_require_attributes :user, :group
@@ -32,7 +32,7 @@ class PermissionTest < ActiveSupport::TestCase
 
     should "not create permission to the child group when a user has access to the root" do 
       @permission = Permission.create(:group => @blue_group, :user => @joe_user, 
-        :mode => "READ", :admin_user => @root, :admin_password => ADMIN_PASSWORD)
+        :mode => "READ", :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD)
       assert_match /User already has permission to the parent group/, @permission.errors[:base]
       assert @permission.new_record?
     end
@@ -47,12 +47,12 @@ class PermissionTest < ActiveSupport::TestCase
       setup do 
         @bob_user   = Factory(:user) 
         @permission = Permission.create(:group => @blue_group, :user => @bob_user, 
-          :mode => "READ", :admin_user => @root, :admin_password => ADMIN_PASSWORD)
+          :mode => "READ", :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD)
       end
 
       should "not create permission to the parent group" do
         @permission = Permission.create(:group => @red_group, :user => @bob_user, 
-         :mode => "READ", :admin_user => @root, :admin_password => ADMIN_PASSWORD) 
+         :mode => "READ", :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD) 
         assert_match /remove the subgroup permissions first/, @permission.errors[:base]
         assert @permission.new_record?
       end
@@ -78,20 +78,20 @@ class PermissionTest < ActiveSupport::TestCase
         @user_lacking_permission   = Factory(:user)
         @user_with_read_permission = Factory(:user)
         @user_with_read_permission.permissions.create(:group => @group, 
-          :mode => "READ", :admin_user => @root, :admin_password => ADMIN_PASSWORD)
+          :mode => "READ", :admin_user => @root, :admin_password => CRYPTED_ADMIN_PASSWORD)
       end
       
       should "not be able to grant access to that group" do 
         assert_raise(AdminUserRequired) do 
           @bob_user.permissions.create(:group => @group, :mode => "READ", 
-            :admin_user => @user_lacking_permission, :admin_password => USER_PASSWORD)
+            :admin_user => @user_lacking_permission, :admin_password => CRYPTED_USER_PASSWORD)
         end
       end
       
       should "not be able to grant access even if user has read access" do 
         assert_raise(AdminUserRequired) do 
           @bob_user.permissions.create(:group => @group, :mode => "READ", 
-            :admin_user => @user_with_read_permission, :admin_password => USER_PASSWORD)
+            :admin_user => @user_with_read_permission, :admin_password => CRYPTED_USER_PASSWORD)
         end
       end
     end
@@ -100,22 +100,22 @@ class PermissionTest < ActiveSupport::TestCase
       setup do
         @joe_user.reload
         @permission = @bob_user.permissions.create(:group => @group, :mode => "READ", 
-          :admin_user => @joe_user, :admin_password => ADMIN_PASSWORD)
+          :admin_user => @joe_user, :admin_password => CRYPTED_ADMIN_PASSWORD)
         reload_activerecord_instances
       end
     
       should "add password entries for the new user" do
-        @red_entry.decrypt_attributes_for(@bob_user, USER_PASSWORD)
+        @red_entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
         assert_equal "crypted!", @red_entry.password
-        @blue_entry.decrypt_attributes_for(@bob_user, USER_PASSWORD)
+        @blue_entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
         assert_equal "crypted!", @blue_entry.password
-        @green_entry.decrypt_attributes_for(@bob_user, USER_PASSWORD)
+        @green_entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
         assert_equal "crypted!", @green_entry.password
       end
       
       should "not add a password entry for an entry not in the group" do 
         assert_raise PermissionsError do 
-          @entry_not_in_group.decrypt_attributes_for(@bob_user, USER_PASSWORD)
+          @entry_not_in_group.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
         end
       end
       
@@ -127,15 +127,15 @@ class PermissionTest < ActiveSupport::TestCase
         
         should "raise a Permissions error if an entry is accessed" do 
           assert_raise PermissionsError do 
-            @red_entry.decrypt_attributes_for(@bob_user, USER_PASSWORD)
+            @red_entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
           end
           
           assert_raise PermissionsError do 
-            @blue_entry.decrypt_attributes_for(@bob_user, USER_PASSWORD)
+            @blue_entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
           end 
           
           assert_raise PermissionsError do 
-            @green_entry.decrypt_attributes_for(@bob_user, USER_PASSWORD)
+            @green_entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD)
           end
         end   
       end    
@@ -147,9 +147,9 @@ class PermissionTest < ActiveSupport::TestCase
         end
         
         should "remove permission from @bob_user" do 
-          assert_raise(PermissionsError) { @red_entry.decrypt_attributes_for(@bob_user, USER_PASSWORD) }
-          assert_raise(PermissionsError) { @blue_entry.decrypt_attributes_for(@bob_user, USER_PASSWORD) } 
-          assert_raise(PermissionsError) { @green_entry.decrypt_attributes_for(@bob_user, USER_PASSWORD) } 
+          assert_raise(PermissionsError) { @red_entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD) }
+          assert_raise(PermissionsError) { @blue_entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD) } 
+          assert_raise(PermissionsError) { @green_entry.decrypt_attributes_for(@bob_user, CRYPTED_USER_PASSWORD) } 
         end
       end
     end    

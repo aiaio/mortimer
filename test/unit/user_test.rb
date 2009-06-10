@@ -9,7 +9,7 @@ class UserTest < ActiveSupport::TestCase
   
   context "A newly-created user" do 
     setup do 
-      @user  = Factory(:user)
+      @user = Factory(:user)
     end
     
     should "have a public key" do 
@@ -36,27 +36,27 @@ class UserTest < ActiveSupport::TestCase
     context "(with two permissions)" do
       setup do 
         @admin = create_admin_user
-        @red_group, @red_entry   = create_group_with_entry(@admin, ADMIN_PASSWORD)
-        @blue_group, @blue_entry = create_group_with_entry(@admin, ADMIN_PASSWORD)
+        @red_group, @red_entry   = create_group_with_entry(@admin, CRYPTED_ADMIN_PASSWORD)
+        @blue_group, @blue_entry = create_group_with_entry(@admin, CRYPTED_ADMIN_PASSWORD)
 
         @user.permissions.create(:group => @red_group, :mode => "READ",
-          :admin_user => @admin, :admin_password => ADMIN_PASSWORD)
+          :admin_user => @admin, :admin_password => CRYPTED_ADMIN_PASSWORD)
         @user.permissions.create(:group => @blue_group, :mode => "READ",
-          :admin_user => @admin, :admin_password => ADMIN_PASSWORD)
+          :admin_user => @admin, :admin_password => CRYPTED_ADMIN_PASSWORD)
         @old_permissions = @user.permissions
         reload_activerecord_instances
       end  
 
       should "have access to entries" do
-        @red_entry.decrypt_attributes_for(@user, "Secret@@")
+        @red_entry.decrypt_attributes_for(@user, CRYPTED_USER_PASSWORD)
         assert @red_entry.password
-        @blue_entry.decrypt_attributes_for(@user, "Secret@@")
+        @blue_entry.decrypt_attributes_for(@user, CRYPTED_USER_PASSWORD)
         assert @blue_entry.password
       end
 
       context "and after resetting the user's password" do
         setup do 
-          @new_password = @user.reset_password(@admin, ADMIN_PASSWORD)
+          @new_password = @user.reset_password(@admin, CRYPTED_ADMIN_PASSWORD)
           @user.reload
         end
 
@@ -65,10 +65,10 @@ class UserTest < ActiveSupport::TestCase
         end  
 
         should "still have access to the entries" do
-          @red_entry.decrypt_attributes_for(@user, @new_password)
+          @red_entry.decrypt_attributes_for(@user, SessionPasswordEncryptor.encrypt(@new_password))
           assert @red_entry.password
 
-          @blue_entry.decrypt_attributes_for(@user, @new_password)
+          @blue_entry.decrypt_attributes_for(@user, SessionPasswordEncryptor.encrypt(@new_password))
           assert @blue_entry.password
         end  
 
@@ -135,13 +135,13 @@ class UserTest < ActiveSupport::TestCase
         end
 
         should "grant all access to the new admin user" do 
-          @red_entry.decrypt_attributes_for(@new_admin, ADMIN_PASSWORD)
+          @red_entry.decrypt_attributes_for(@new_admin, CRYPTED_ADMIN_PASSWORD)
           assert @red_entry.password
 
-          @blue_entry.decrypt_attributes_for(@new_admin, ADMIN_PASSWORD)
+          @blue_entry.decrypt_attributes_for(@new_admin, CRYPTED_ADMIN_PASSWORD)
           assert @blue_entry.password
 
-          @green_entry.decrypt_attributes_for(@new_admin, ADMIN_PASSWORD)
+          @green_entry.decrypt_attributes_for(@new_admin, CRYPTED_ADMIN_PASSWORD)
           assert @green_entry.password
         end
 
@@ -156,7 +156,7 @@ class UserTest < ActiveSupport::TestCase
     should "be deletable if another admin user exists" do 
       @new_admin = Factory(:user) 
       @new_admin.password = nil
-      @new_admin.grant_admin(@root, ADMIN_PASSWORD)
+      @new_admin.grant_admin(@root, CRYPTED_ADMIN_PASSWORD)
       assert @admin.destroy
     end
     

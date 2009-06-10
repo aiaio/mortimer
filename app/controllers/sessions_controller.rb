@@ -19,16 +19,16 @@ class SessionsController < ApplicationController
   def create
     logout_keeping_session!
     user = User.authenticate(params[:login], params[:password])
-    if user
-      session[:pwd]     = params[:password]
-      session[:open_groups] = nil
-      self.current_user = user
-      redirect_back_or_default('/')
-    else
+    if !user
       note_failed_signin
       flash[:notice] = "Bad email or password."
       @login       = params[:login]
       render :action => 'new'
+    elsif user_has_permissions?(user)
+      session[:pwd] = SessionPasswordEncryptor.encrypt(params[:password])
+      session[:open_groups] = {}
+      self.current_user = user
+      redirect_back_or_default('/')
     end
   end
 
@@ -43,8 +43,17 @@ class SessionsController < ApplicationController
 
     # Store failed sign-in attempts in the main log file.
     def note_failed_signin
-      flash[:error] = "Couldn't log you in as '#{params[:login]}'"
       logger.warn "Security: Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
+    end
+
+    def user_has_permissions?(user)
+      if !user.is_admin? && user.permissions.blank?
+        flash[:notice] = "You currently have no permissions. Please contact an admin."
+        render :action => 'new'
+        return false
+      else
+        return true
+      end
     end
 
 end

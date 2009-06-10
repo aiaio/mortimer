@@ -1,0 +1,6 @@
+log/*.log
+tmp/**/*
+doc/api
+doc/app
+*.swp
+config/database.yml

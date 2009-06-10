@@ -3,9 +3,11 @@ module CustomTestHelpers
 
   # A default password for admins and root.
   ADMIN_PASSWORD = "Secret@@"
+  CRYPTED_ADMIN_PASSWORD = SessionPasswordEncryptor.encrypt(ADMIN_PASSWORD) 
   
   # A default password for users.
   USER_PASSWORD  = "Secret@@"
+  CRYPTED_USER_PASSWORD = SessionPasswordEncryptor.encrypt(USER_PASSWORD)
 
   # A default password for entries.
   ENTRY_PASSWORD = "crypted!" 
@@ -15,7 +17,7 @@ module CustomTestHelpers
     def create_admin_user
       create_root_user unless root = User.root
       admin = Factory(:user, :password => ADMIN_PASSWORD, :password_confirmation => ADMIN_PASSWORD)
-      admin.grant_admin(root, ADMIN_PASSWORD)
+      admin.grant_admin(root, CRYPTED_ADMIN_PASSWORD)
       return admin 
     end  
 

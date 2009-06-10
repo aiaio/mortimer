@@ -21,7 +21,6 @@ Rails::Initializer.run do |config|
   config.gem "thoughtbot-factory_girl", :lib => "factory_girl"
   config.gem "mocha"
   
-  # Use ssl_requirement exception_notification plugin.
   config.plugins = [ :all ]
 
   # Add additional load paths for your own custom dirs
@@ -34,11 +33,6 @@ Rails::Initializer.run do |config|
   # Use UTC by default.
   config.time_zone = "UTC"
 
-  # The internationalization framework can be changed to have another default locale (standard is :en) or more load paths.
-  # All files from config/locales/*.rb,yml are added automatically.
-  # config.i18n.load_path << Dir[File.join(RAILS_ROOT, "my", "locales", "*.{rb,yml}")]
-  # config.i18n.default_locale = :de
-
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random, 
@@ -48,7 +42,7 @@ Rails::Initializer.run do |config|
     :secret      => "f7c48e8519307fcca9e779a6da67932d4ca473a7056c3bdc32420101192c22fc7c33844c76de698e86967"
   }
 
-  # Since we"ll be storing user passwords needs to be stored in the session.
+  # Since this application demands the temporary.
   config.action_controller.session_store = :cookie_store
 
   # Activate observers that should always be running
