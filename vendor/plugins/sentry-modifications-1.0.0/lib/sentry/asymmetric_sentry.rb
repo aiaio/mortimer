@@ -17,9 +17,11 @@ module Sentry
     end
     
     # Decrypt the given base64-encoded data.
-    # Expects a symetrically-encrypted private key with password.
-    def self.decrypt_from_base64_with_key(data, encrypted_key, password)
+    # Expects a symetrically-encrypted private key with an encrypted password, 
+    # along with the key to decrypt that password.
+    def self.decrypt_from_base64_with_key(data, encrypted_key, crypted_password, password_key)
       decoded     = Base64.decode64(data)
+      password    = SymmetricSentry.decrypt_from_base64(crypted_password, password_key)
       private_key = decrypt_private_key(encrypted_key, password)
       OpenSSL::PKey::RSA.new(private_key).private_decrypt(decoded)
     end
@@ -28,6 +30,6 @@ module Sentry
       encryptor   = SymmetricSentry.new
       private_key = encryptor.decrypt_from_base64(encrypted_key, password)
     end
-    
+
   end
 end

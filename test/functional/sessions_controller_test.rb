@@ -7,7 +7,9 @@ class SessionsController; def rescue_action(e) raise e end; end
 class SessionsControllerTest < ActionController::TestCase
 
   context "RESTful Authentication Tests:" do 
-    setup { @quentin = Factory(:user, :login => 'quentin') }
+    setup do 
+      @quentin = Factory(:user, :login => 'quentin', :is_admin => true)
+    end
 
     should "login and redirect" do
       post :create, :login => 'quentin', :password => 'Secret@@'

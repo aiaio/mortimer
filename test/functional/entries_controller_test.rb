@@ -7,14 +7,14 @@ class EntriesControllerTest < ActionController::TestCase
      @root  = create_root_user 
      @admin = create_admin_user  
      @user  = Factory(:user)
-     @group, @entry = create_group_with_entry(@admin, ADMIN_PASSWORD)
+     @group, @entry = create_group_with_entry(@admin, CRYPTED_ADMIN_PASSWORD)
    end
 
     context "A user with access" do 
       setup do
         @user.permissions.create(:group => @group, :mode => "READ",
-          :admin_user => @admin, :admin_password => ADMIN_PASSWORD)                          
-        login_as @user, "Secret@@"
+          :admin_user => @admin, :admin_password => CRYPTED_ADMIN_PASSWORD)                          
+        login_as @user, USER_PASSWORD
         xhr :get, :show, :id => @entry
       end
 
@@ -28,7 +28,7 @@ class EntriesControllerTest < ActionController::TestCase
 
       should "render access denied" do 
         xhr :get, :show, :id => @entry
-        assert_access_denied
+        assert_match /401/, @response.status
       end  
     end  
 
@@ -48,7 +48,7 @@ class EntriesControllerTest < ActionController::TestCase
     setup do 
       @admin = create_admin_user
       @user  = Factory(:user)
-      @group, @entry = create_group_with_entry(@admin, ADMIN_PASSWORD)
+      @group, @entry = create_group_with_entry(@admin, CRYPTED_ADMIN_PASSWORD)
     end  
 
     context "on get new" do
@@ -102,13 +102,13 @@ class EntriesControllerTest < ActionController::TestCase
     setup do
       @admin = create_admin_user
       @user  = Factory(:user)
-      @group, @entry = create_group_with_entry(@admin, ADMIN_PASSWORD)
+      @group, @entry = create_group_with_entry(@admin, CRYPTED_ADMIN_PASSWORD)
     end
 
     context "with read permissions:" do
       setup do 
         @user.permissions.create(:group => @group, :mode => "READ",
-          :admin_user => @admin, :admin_password => ADMIN_PASSWORD)
+          :admin_user => @admin, :admin_password => CRYPTED_ADMIN_PASSWORD)
         login_as @user, "Secret@@"
       end
    
@@ -141,7 +141,7 @@ class EntriesControllerTest < ActionController::TestCase
     context "with write permissions:" do
       setup do 
         @user.permissions.create(:group => @group, :mode => "WRITE",
-          :admin_user => @admin, :admin_password => ADMIN_PASSWORD)
+          :admin_user => @admin, :admin_password => CRYPTED_ADMIN_PASSWORD)
         login_as @user, "Secret@@"
       end
 

@@ -19,8 +19,6 @@ class ApplicationController < ActionController::Base
   # Warns if admin permissions become inconsistent.
   after_filter :check_admin_permissions
 
-  # Adds forgery protection; since we're using cookie-session-store,
-  # the :secret parameter is unnecessary.
   protect_from_forgery
   
   # Don't log passwords, password_confirmations, usernames, or urls. 

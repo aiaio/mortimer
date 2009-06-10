@@ -4,7 +4,7 @@ module AuthenticatedTestHelper
   # Optionally sets plain-text password
   def login_as(user, password=nil)
     @request.session[:user_id] = user.attributes["id"]
-    @request.session[:pwd]     = password
+    @request.session[:pwd]     = SessionPasswordEncryptor.encrypt(password) unless password.nil?
   end
 
   # Mock http authorization.
@@ -12,5 +12,4 @@ module AuthenticatedTestHelper
     @request.env["HTTP_AUTHORIZATION"] = user ? ActionController::HttpAuthentication::Basic.encode_credentials(users(user).login, 'monkey') : nil
   end
   
-
 end

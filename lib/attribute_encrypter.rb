@@ -177,9 +177,9 @@ module AttributeEncrypter
       end
       
       # Decrypts given an encrypted private key and private-key's password.
-      def asymmetric_decrypt(crypted_data, crypted_key, keypass)
+      def asymmetric_decrypt(crypted_data, crypted_key, crypted_keypass, keypass_key=SESSION_PASSWORD_KEY)
         crypted_key.chomp!
-        sentry.decrypt_from_base64_with_key(crypted_data, crypted_key, keypass)
+        sentry.decrypt_from_base64_with_key(crypted_data, crypted_key, crypted_keypass, keypass_key)
       end
       
       # Class handling encryption and decryption.

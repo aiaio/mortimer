@@ -80,26 +80,15 @@ class UsersControllerTest < ActionController::TestCase
         assert_access_denied
       end  
 
-      should "not access edit if attempting to edit another user" do 
-        get :edit, :id => @user2
-        assert_access_denied
-      end  
-
-      should "not access update if updating another user" do 
-        put :update, :id => @user2
-        assert_access_denied
-      end  
-
-      should "access edit if editing self" do 
+      should "not access edit" do 
         get :edit, :id => @user
-        assert_template /edit/
-      end
+        assert_access_denied
+      end  
 
-      should "access update if updating self" do
-        put :update, :id => @user, :user => {:login => "newlogin"}
-        assert_match /updated/i, flash[:notice]
-        assert_redirected_to edit_user_url(@user) 
-      end     
+      should "not access update" do 
+        put :update, :id => @user
+        assert_access_denied
+      end  
     end
   end
 

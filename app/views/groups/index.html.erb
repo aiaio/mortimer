@@ -5,28 +5,24 @@
 </div>
 <!-- /#content_body -->
 
-<% if @groups.blank? && !current_user.is_admin? %>
-  <p><strong>You currently have no permissions. Please contact a system administrator for help.</strong></p>
-<% else %> 
-	<!-- #sidebar -->
-	<div id="sidebar">
-		<% if current_user.is_admin? %>
-		<!-- .module -->
-		<div class="module">
-			<h2>Admin</h2>
-			<div id="menu" class="module_box">
-				<div class="module_content">
-					<ul class="listing_common">
-						<% unless @groups.blank? %>
-						<li><a href="<%= new_entry_url %>" class="icon add">Add Entry</a></li>
-						<% end %>  
-						<li class="last"><a href="<%= new_group_url %>" class="icon add">Add Group</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- /.module -->
-		<% end %>
-	</div>
-	<!-- /#sidebar -->
-<% end %>
+<!-- #sidebar -->
+<div id="sidebar">
+  <% if current_user.is_admin? %>
+  <!-- .module -->
+  <div class="module">
+    <h2>Admin</h2>
+    <div id="menu" class="module_box">
+      <div class="module_content">
+        <ul class="listing_common">
+          <% unless @groups.blank? %>
+          <li><a href="<%= new_entry_url %>" class="icon add">Add Entry</a></li>
+          <% end %>  
+          <li class="last"><a href="<%= new_group_url %>" class="icon add">Add Group</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /.module -->
+  <% end %>
+</div>
+<!-- /#sidebar -->

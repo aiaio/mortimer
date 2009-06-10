@@ -15,7 +15,7 @@ class GroupTest < ActiveSupport::TestCase
   context "When an admin exists" do 
     setup do 
       @admin = Factory(:user)
-      @admin.grant_admin(@root, "secret@@")
+      @admin.grant_admin(@root, CRYPTED_ADMIN_PASSWORD)
     end
 
     context "and a new group is created" do 

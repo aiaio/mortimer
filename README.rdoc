@@ -4,35 +4,32 @@ A secure, multi-user password management apps.
 
 == DESCRIPTION:
 
-mortimer is a password app that supports multiple users and basic permissions. The encryption uses
-public key cryptography so that even if the database or the application itself is compromised, 
-the stored passwords remain useless to an attacker.
+mortimer is a password storage application that supports multiple users and basic permissions. The app relies on public key cryptography to facilitate a multi-user password system whose data remains secure even if the database is compromised.
 
-Admin users have permission to all password entries on the system. Thus, it is important to keep admin users
-to a minimum. Users may be given permission to root-level groups and any groups one level deep. This should provide granular enough permissions for general use.
+Admin users have permission to all password entries on the system.  Users may be given permission on a password-group basis. 
 
 == ENCRYPTION:
 
 mortimer uses asymmetric encryption on the user level.  It work like so:
 
-Imagine that we need to store a shared password, such as the password to an e-commerce admin.
+Imagine that we need to store a shared password, such as the password to a web application admin.
 
-Now, we need to give Tom access to that password, so we add him to the system.  
+We want to grant our hypothetical user, Tom, access to that password, so we add him to the system.
 
 A unique public and private key will be generated for Tom.  Tom's public key is used to 
 encrypt any password for which he is granted access.  Tom's private key is stored, symetrically
 encrypted using his login password.
 
-So, when we give Tom access to the e-commerce admin, Tom's public key is used to 
-generate a uniquely-encrypted version of the password, just for Tom. 
+(Note that this does not mean that Tom's login password is stored in plain-text; rather, when Tom logs in, the plain-text password he enters is symetrically encrypted using an application-specific key and is stored in Tom's cookie-stored session, which is also encrypted. A stricter security scheme would require Tom to enter his password every time he needed to view a stored password; however, it seems sufficently secure to store the password doubly-encrypted in a session cookie that is cleared once the user logs out.)
 
-When Tom goes to view the password, the system decrypts Tom's private key with his login password.
+When we give Tom access to the e-commerce admin, Tom's public key is used to generate a uniquely-encrypted version of the password, just for Tom. 
+
+When Tom goes to view the password, the system decrypts Tom's private key using his login password.
 The decrypted private key can then be used to decrypt Tom's version of the e-commerce admin password.
 
 So, if ten users have access to a given password, then ten uniquely-encrypted copies of that password
-are stored on the system.  One benefit of this method is that, if the password changes, the password
-is re-encrypted for each user, using each user's public key. This means that it's easy for changes in password
-entries to be reflected for each user while maintaining completely siloed user password permissions.
+are stored on the system.  One of the main benefits of this method is that, if the password changes, the password can be easily re-encrypted for each user, using each user's public key. This means that it's easy for changes in password
+entries to be reflected for each user while maintaining completely siloed user password storage.
 
 
 ==INSTALL:
@@ -69,12 +66,11 @@ top-level folder. YOU MUST REMOVE THIS FILE AND STORE IT IN A SAFE PLACE.  Shoul
 locked out of the system, the root key will allow you to decrypt any password in the database.
 
 Start a web server, and log in as the admin user.  You can now add users and passwords.  Users can
-be made into admins, which basically gives them free reign (not recommended); non-admin users can also be given
+be made into admins, which basically gives them free reign (not recommended); non-admin users may be granted 
 read or write access to any password group.
 
-Note: Since private keys are encrypted using user passwords, it's important to choose
-good passwords. By default, the app requires passwords of at least eight characters, with
-at least one of these being an upper-case letter, and at least two non-word/number characters.
+IMPORTANT: Since private keys are encrypted using user passwords, it's important to choose
+good passwords. The system is essentially only as strong as its user passwords.  By default, the app requires passwords of at least eight characters, with at least one of these being an upper-case letter, and at least two non-word/number characters.
 
 === DOCUMENTATIOIN
 
@@ -94,15 +90,15 @@ mortimer logs all security exceptions to the main log file.
 
 1. In a production situation, this app must be run over SSL.
 
-2. mortimer probably shouldn't be exposed to the Internet.  We use it on an internal network only.
+2. mortimer shouldn't be exposed to the Internet.  We use it on an internal network only.
 
-3. We're comfortable storing sessions in a cookie, though more paranoid options are available. 
+3. Admin users should be kept to a minimum; passwords for admin users should be as strong as possible.
 
 == DEVELOPMENT AND CONTRIBUTIONS:
 
-Note that this is an initial release. Expect regular improvements.
+This should be considered an alpha release; there will be bugs.
 
-We certainly welcome any improvements to mortimer, particularly security patches.
+We welcome any improvements to mortimer, particularly security patches.
 
 == TESTS
 
