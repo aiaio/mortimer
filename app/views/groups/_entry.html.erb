@@ -1,4 +1,6 @@
 <li>
   <a href="<%= entry_url(entry)%>" class='littlebox'><%= entry.title %></a>
-  <em>(<a href="<%= edit_entry_url(entry)%>">edit</a>)</em>
+  <% if entry.group.allows_write_access_for?(current_user) %>
+    <em>(<a href="<%= edit_entry_url(entry)%>">edit</a>)</em>
+  <% end %>
 </li>
