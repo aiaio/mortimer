@@ -23,7 +23,7 @@ class SettingsController < ApplicationController
 
   def store_open_groups
     group = Group.find(params[:id]) 
-    if group.self_and_ancestors.any? {|g| current_user.groups.include?(g)}
+    if group
       session[:open_groups] ||= {}
       session[:open_groups][group.id] = (params[:open] == 'true') ? true : nil
     end
