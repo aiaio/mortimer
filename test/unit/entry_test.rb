@@ -14,7 +14,7 @@ class EntryTest < ActiveSupport::TestCase
   context "Validations:" do
     should_require_attributes :group, :title, :username, :password
     should_ensure_length_in_range :password, (6..40)
-    should_ensure_length_in_range :title, (2..50)
+    should_ensure_length_in_range :title, (2..110)
   end  
   
   context "With three users, " do 

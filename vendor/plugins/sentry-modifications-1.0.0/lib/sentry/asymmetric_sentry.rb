@@ -4,7 +4,7 @@ module Sentry
     # Returns a hash containing public and private keys. 
     # Private key will be encrypted with the given password.
     def self.generate_random_rsa_key(password, options={})
-      rsa = OpenSSL::PKey::RSA.new(512)
+      rsa = OpenSSL::PKey::RSA.new(1024)
       public_key  = rsa.public_key.to_s
       private_key = SymmetricSentry.new(:algorithm => options[:symmetric_algorithm]).encrypt_to_base64(rsa.to_s, password)
       {:public => public_key, :private => private_key}

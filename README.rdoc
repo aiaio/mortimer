@@ -72,6 +72,14 @@ read or write access to any password group.
 IMPORTANT: Since private keys are encrypted using user passwords, it's important to choose
 good passwords. The system is essentially only as strong as its user passwords.  By default, the app requires passwords of at least eight characters, with at least one of these being an upper-case letter, and at least two non-word/number characters.
 
+=== PASSWORD RECOVERY
+
+To recover all passwords and write them to a file, run the following:
+
+  rake recover_passwords
+
+This rake task will write all passwords RAILS_ROOT/passwords.txt. The rake task will run only if the root key is present in the root folder; hence, again, the importance of storing the root key in a safe place.
+
 === DOCUMENTATIOIN
 
 This app is fairly well-documented. To view the RDoc, run

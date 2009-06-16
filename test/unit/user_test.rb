@@ -23,8 +23,9 @@ class UserTest < ActiveSupport::TestCase
 
     context "when updating password" do 
       setup do 
+        old_password = SessionPasswordEncryptor.encrypt(USER_PASSWORD)
         @user.update_attributes(:password => "Unknown$$", :password_confirmation => "Unknown$$", 
-          :old_password => USER_PASSWORD)
+          :old_password => old_password)
       end
 
       should "re-encrypt the private key with the new password" do 

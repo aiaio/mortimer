@@ -17,8 +17,9 @@ module Sentry
         self.crypted_private_key = keys[:private].to_s.chomp
       end   
 
-      def recrypt_private_key
-        pkey = Sentry::AsymmetricSentry.decrypt_private_key(self.crypted_private_key, self.old_password)
+      def recrypt_private_key(password_key = SESSION_PASSWORD_KEY)
+        decrypted_password = SymmetricSentry.decrypt_from_base64(self.old_password, password_key)
+        pkey = Sentry::AsymmetricSentry.decrypt_private_key(self.crypted_private_key, decrypted_password)
         self.crypted_private_key = Sentry::SymmetricSentry.encrypt_to_base64(pkey.to_s, self.password)        
       end
 

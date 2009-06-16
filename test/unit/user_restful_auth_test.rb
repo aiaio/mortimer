@@ -47,7 +47,8 @@ class UserRestfulAuthTest < ActiveSupport::TestCase
     end
   
     should "not rehash password" do
-      @quentin.update_attributes(:login => 'quentin2', :old_password => 'Monkey$$')
+      old_password = SessionPasswordEncryptor.encrypt('Monkey$$')
+      @quentin.update_attributes(:login => 'quentin2', :old_password => old_password) 
       assert_equal @quentin, User.authenticate('quentin2', 'Monkey$$')
     end
   
@@ -57,7 +58,7 @@ class UserRestfulAuthTest < ActiveSupport::TestCase
   
   end
 
-protected
+  protected
 
   def create_user(options = {})
     record = Factory.build(:user, {:login => 'quire', :email => 'quire@example.com', 
