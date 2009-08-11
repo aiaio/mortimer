@@ -1,6 +1,6 @@
 <h1>New Group</h1>
 
-<% form_for :group, :url => groups_url, :id => "new_group_form" do |f| %>
+<% form_for :group, :url => groups_url, :html => {:id => "new_group_form"} do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form" %>
   
