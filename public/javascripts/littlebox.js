@@ -53,18 +53,28 @@ Littlebox.prototype = {
     }.bind(this));
     Event.observe(window, "resize", this.adjust.bind(box));
     Event.observe(window, "scroll", this.adjust.bind(box));
+    Event.observe(window, "resize", this.positionOverlay.bind(this, $('overlay')));
+    Event.observe(window, "scroll", this.positionOverlay.bind(this, $('overlay')));
   },
   
   // Add the big, gray overlay to the DOM.
   createOverlay: function(){
-    var overlay = new Element("div", {"id": "overlay"});
-    overlay.setStyle({
-      height:  "300%",
-      width:   "300%"});
+    var overlay       = new Element("div", {"id": "overlay"});
+    var offsets       = document.viewport.getScrollOffsets();
+    this.positionOverlay(overlay);
 
     // When the gray background is clicked, the overlay will dissappear.
     Event.observe(overlay, "click", this.hideElements.bindAsEventListener(this));
     document.body.appendChild(overlay);
+  },
+
+  positionOverlay: function(overlay) {
+    var offsets  = document.viewport.getScrollOffsets();
+    overlay.setStyle({
+      height:  document.viewport.getHeight() + "px",
+      width:   document.viewport.getWidth() + "px",
+      top:     offsets.top + "px",
+      left:    offsets.left + "px"});
   },
 
   // Center the box in the window.         
@@ -93,12 +103,15 @@ Littlebox.prototype = {
   },
   
   hideElements: function() {
-    var box = $("littleBox");
+    var box     = $("littleBox");
+    var overlay = $("overlay");
     box.hide();
     $("overlay").hide();
     this.removeElements();
     Event.stopObserving(window, "resize", this.adjust.bind(box));
     Event.stopObserving(window, "scroll", this.adjust.bind(box));
+    Event.stopObserving(window, "resize", this.positionOverlay.bind(overlay));
+    Event.stopObserving(window, "scroll", this.positionOverlay.bind(overlay));
   },
 
   removeElements: function() {

@@ -13,8 +13,8 @@
 
 #littleBox {
         background: #FFF;
-	      z-index: 110;
-	      position: absolute;
+        z-index: 110;
+        position: absolute;
         width: 400px;
         min-height: 200px;
         height: auto;

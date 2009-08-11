@@ -18,7 +18,6 @@ PasswordGenerator.prototype = {
   // Populate the given fields with a random password.
   populateFields: function() {
     var randomPassword = this.generateRandomPassword();
-    console.log(randomPassword);
 
     this.fieldsToPopulate.each(function(field) {
       field.value = randomPassword;
@@ -48,7 +47,6 @@ PasswordGenerator.prototype = {
       characterType = (Math.random()) > 0.5 ? 2 : 3;
     }
 
-    console.log(characterType);
 
     var randomIndex   = Math.floor(Math.random() * this.passwordPool[characterType].length);
 
