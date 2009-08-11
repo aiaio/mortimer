@@ -51,14 +51,16 @@ Littlebox.prototype = {
     this.callbacks.each(function(callback) {
       callback.call(this);  
     }.bind(this));
+    Event.observe(window, "resize", this.adjust.bind(box));
+    Event.observe(window, "scroll", this.adjust.bind(box));
   },
   
   // Add the big, gray overlay to the DOM.
   createOverlay: function(){
     var overlay = new Element("div", {"id": "overlay"});
     overlay.setStyle({
-      height:  "100%",
-      width:   "100%"});
+      height:  "300%",
+      width:   "300%"});
 
     // When the gray background is clicked, the overlay will dissappear.
     Event.observe(overlay, "click", this.hideElements.bindAsEventListener(this));
@@ -91,10 +93,12 @@ Littlebox.prototype = {
   },
   
   hideElements: function() {
-    $("littleBox").hide();
+    var box = $("littleBox");
+    box.hide();
     $("overlay").hide();
     this.removeElements();
-    Event.stopObserving(window, "resize", this.adjust.bindAsEventListener($("littleBox")));
+    Event.stopObserving(window, "resize", this.adjust.bind(box));
+    Event.stopObserving(window, "scroll", this.adjust.bind(box));
   },
 
   removeElements: function() {

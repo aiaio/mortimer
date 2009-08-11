@@ -1,12 +1,11 @@
 <h1>New Group</h1>
 
-<% form_for :group, :url => groups_url do |f| %>
+<% form_for :group, :url => groups_url, :id => "new_group_form" do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form" %>
   
 	<div class="buttons clear">
-		<%#=f.submit "Create" %>
-		<button class="btn_create">Create</button>
+		<button class="btn_create" onclick="$('new_group_form').submit();">Create</button>
 		<a href="<%= home_path %>" class="cancel btn_cancel">Cancel</a>
 	</div>
 <% end %>
