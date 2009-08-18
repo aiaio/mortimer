@@ -5,7 +5,7 @@
 	-->
 	
 	<% if group.allows_admin_access_for?(current_user) %>
-	  <em>(<a href="<%= edit_group_url(group) %>" class="edit">edit</a>)</em>
+	  <div class="clear"><em class="edit_group">(<a href="<%= edit_group_url(group) %>" class="edit">edit</a>)</em></div>
   <% elsif group.allows_write_access_for?(current_user) %>
 	  <a href="<%= new_entry_url(:entry => {:group_id => group.id}) %>" class="edit">add entry</a>
   <% end %>

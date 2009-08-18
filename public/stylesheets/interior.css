@@ -135,7 +135,7 @@ p {
 	z-index: 2;
 }
 	#content #content_main {
-		background: url(/images/bg/bg_canvas_content.png) no-repeat left bottom;
+		background: #fff url(/images/bg/bg_canvas_content.png) no-repeat left bottom;
 		_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/bg/bg_canvas_content.png', sizingMethod='scale');
 		_background: none;
 		zoom: 1;
@@ -145,7 +145,13 @@ p {
 		width: 440px;
 		margin: 0 50px 0 0;
 		position: relative;
-	}	
+	}
+	#content #content_bottom {
+		background: url(/images/bg/bg_canvas_bottom.png) no-repeat left bottom;
+		_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/bg/bg_canvas_bottom.png', sizingMethod='image');
+		_background: none;
+		height: 15px;
+	}
 	#content #sidebar {
 		float: left;
 		width: 196px;
@@ -395,15 +401,27 @@ fieldset.common {}
 		padding: 0 0 14px 0;
 		margin: 0 0 14px 0;
 	}
-		.listing_toggle li em {
-			font-size: 15px;
-			color: #a4a3a3;
+		.listing_toggle li.header {
+		}
+		.listing_toggle li a.littlebox {
+			float: left;
 			margin: 0 5px 0 0;
 		}
-			.listing_toggle li em a {
-				
+		.listing_toggle li em {
+			float: left;
+			font-size: 15px;
+			color: #a4a3a3;
+			margin: 1px 5px 0 0;
+		}
+			.listing_toggle li em.edit_group {
+				margin: 5px 0 0 0;
 			}
-		.listing_toggle li ol { margin: 11px 0 15px 0; }
+			.listing_toggle li em a {
+			}
+		.listing_toggle li ol { margin: 11px 0 0 0; }
+			.listing_toggle li ol.slideable li {
+				margin: 0 0 10px 0;
+			}
 			.listing_toggle li li { 
 				font-size: 17px; 
 				border-bottom: 0;
@@ -412,12 +430,18 @@ fieldset.common {}
 			}
 				.listing_toggle li li.header { font-size: 22px; }
 		.listing_toggle li a.edit {  }
-		.listing_toggle li a.slideHandle { 
-			color: #333; 
+		.listing_toggle li a.slideHandle {
+			float: left;
+			color: #333;
+			margin: 0 5px 0 0;
+			line-height: 24px;
 		}
 		.listing_toggle li a.toggle {
+			float: left;
 			background: url(/images/icon/icon_toggle.gif) no-repeat left -75px;
+			margin: 0 5px 0 0;
 			padding: 0 0 0 25px;
+			line-height: 24px;
 		}
 		#container #content .listing_toggle li a.toggle:hover { 
 			background-position: left -34px; 
