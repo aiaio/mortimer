@@ -1,3 +1,7 @@
+=== 1.2 / 2009-8-14
+* Fixed a number of display bugs for ie, firefox, and safari.
+* Improved lightbox library.
+
 === 1.1.1 / 2009-6-16
 * Changed key size from 512 to 1024 to encrypt fields up to 117 bytes.
 * Added rake task and module for recovering passwords given the root key.
