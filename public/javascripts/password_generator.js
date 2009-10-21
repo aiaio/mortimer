@@ -24,10 +24,10 @@ PasswordGenerator.prototype = {
     });
   },
 
-  // Return a random string of 8-10 characters.
+  // Return a random string of 10-12 characters.
   generateRandomPassword: function() {
     var newPassword = [];     
-    var passwordLength = Math.floor(Math.random() * 3 + 8);
+    var passwordLength = Math.floor(Math.random() * 3 + 10);
     for(i=0; i<=passwordLength; i++) {
       newPassword.push(this.randomCharacter());
     }

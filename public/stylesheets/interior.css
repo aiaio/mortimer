@@ -406,6 +406,7 @@ fieldset.common {}
 		.listing_toggle li a.littlebox {
 			float: left;
 			margin: 0 5px 0 0;
+			line-height: 19px;
 		}
 		.listing_toggle li em {
 			float: left;
