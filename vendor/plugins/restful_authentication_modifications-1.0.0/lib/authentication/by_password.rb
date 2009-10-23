@@ -38,12 +38,12 @@ module Authentication
       # strict validation is enforced.
       def validate_password
         return unless password_required?
-        if password =~ /^.{8,40}$/ &&  # Minimum eight characters, maximum for
+        if password =~ /^.{10,40}$/ &&  # Minimum ten characters, maximum for
            password =~ /[A-Z]/ &&  # At least one uppercase letter
-           password =~ /([0-9|\W]).*([0-9|\W])/ # At least two non-word characters or numbers
+           password =~ /([0-10|\W]).*([0-10|\W])/ # At least two non-word characters or numbers
            return true
         else
-          self.errors.add(:password, "must be at least 8 characters long, contain both lower- and upper-case letters, and have at least two symbols or numbers.")
+          self.errors.add(:password, "must be at least 10 characters long, contain both lower- and upper-case letters, and have at least two symbols or numbers.")
           return false
         end  
       end

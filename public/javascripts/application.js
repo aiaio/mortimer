@@ -76,3 +76,22 @@ document.observe('dom:loaded', function(){
   var focuser = new Focuser;
 });
 
+/* ExternalLinks
+----------------------------------------------------------------------------------------*/
+var ExternalLinks = Class.create({
+	initialize: function(selector) {
+		this.container = $$('body').first();
+		this.selectors = this.container.select(selector);
+		this.setup();
+	},
+	setup: function() {
+		this.selectors.each(function(el) {
+			if(el.getAttribute("href") && el.getAttribute("rel") == "external") {
+				el.observe('click', function() {
+					window.open(this.href);
+					
+				});
+			}
+		});
+	}
+});
