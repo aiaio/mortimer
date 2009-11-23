@@ -5,7 +5,7 @@
 			<%= @entry.group.title + ": <span>" + @entry.title + "</span>" %>
 		
 			<% if @entry.allows_write_access_for?(current_user) %>
-			<em>(<a href="<%= edit_entry_url(@entry) %>">edit</a>)</em>
+			<em>(<a href="<%= edit_entry_url(@entry) %>">edit / delete</a>)</em>
 			<% end %>
 		</h2>
 	</div>
