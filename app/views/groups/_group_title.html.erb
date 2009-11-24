@@ -1,5 +1,5 @@
 
-  <a href="javascript:void(0);" class="slideHandle <% if group.has_children_or_entries? %>toggle<% end %> <% if group_open?(group) %>active<% end %>" id="handle_<%= group.id %>"><%= group.title %></a>  
+  <a href="javascript:void(0);" class="slideHandle <% if group.has_children_or_entries? %>toggle<% end %> <% if group_open?(group) %>active<% end %>" id="handle_<%= group.id %>"><%= truncate(group.title, 30, "...") %></a>  
 	<!--
 	<em>10 Projects</em>
 	-->

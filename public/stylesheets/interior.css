@@ -395,7 +395,7 @@ fieldset.common {}
 ----------------------------------------------------------------------------------------*/
 .listing_toggle {}
 	.listing_toggle li {
-		font-size: 22px;
+		font-size: 20px;
 		border-bottom: 1px solid #e0e0e0;
 		line-height: 1;
 		padding: 0 0 14px 0;
@@ -429,8 +429,11 @@ fieldset.common {}
 				padding: 0 0 0 26px;
 				margin: 0 0 4px 0;
 			}
-				.listing_toggle li li.header { font-size: 22px; }
-		.listing_toggle li a.edit {  }
+				.listing_toggle li li.header { font-size: 20px; }
+		.listing_toggle li a.edit { 
+			position: relative; 
+			top: 2px;
+		}
 		.listing_toggle li a.slideHandle {
 			float: left;
 			color: #333;
