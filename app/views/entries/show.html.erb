@@ -24,7 +24,7 @@
 
 		<% unless @entry.url.blank? %>
 		<dt>Url:</dt>
-		<dd><a href="<%=h @entry.url %>" target="target-new"><%=h @entry.url %></a></dd>
+		<dd><a href="<%=h @entry.url %>" target="target-new"><%=h truncate(@entry.url, :length => 30) %></a></dd>
 		<% end %>
 
 		<% unless @entry.description.blank? %>
