@@ -15,7 +15,7 @@
 		<dd><%=h @entry.title %></dd>
 
 		<dt>Username:</dt>
-		<dd><%=h @entry.username %></dd>
+		<dd><%=h truncate (@entry.username, :length => 30) %></dd>
 
 		<dt>Password:</dt>
     <dd id="password_container">
