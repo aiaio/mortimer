@@ -410,9 +410,9 @@ fieldset.common {}
 		}
 		.listing_toggle li em {
 			float: left;
-			font-size: 15px;
+			font-size: 12px;
 			color: #a4a3a3;
-			margin: 1px 5px 0 0;
+			margin: 6px 5px 0 0;
 		}
 			.listing_toggle li em.edit_group {
 				margin: 2px 0 0 0;
