@@ -419,7 +419,7 @@ fieldset.common {}
 			}
 			.listing_toggle li em a {
 			}
-		.listing_toggle li ol { margin: 11px 0 0 0; }
+		.listing_toggle li ol { margin: 11px 0 0 0; width: 100%; }
 			.listing_toggle li ol.slideable li {
 				margin: 0 0 10px 0;
 				background: url(/images/icon/icon_bullet.gif) no-repeat 25px 7px;
