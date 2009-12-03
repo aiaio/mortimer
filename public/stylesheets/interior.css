@@ -415,7 +415,7 @@ fieldset.common {}
 			margin: 1px 5px 0 0;
 		}
 			.listing_toggle li em.edit_group {
-				margin: 5px 0 0 0;
+				margin: 2px 0 0 0;
 			}
 			.listing_toggle li em a {
 			}
@@ -424,6 +424,8 @@ fieldset.common {}
 				margin: 0 0 10px 0;
 				background: url(/images/icon/icon_bullet.gif) no-repeat 25px 7px;
 				padding: 0 0 0 40px;
+				float: left;
+				width: 400px;
 			}
 			.listing_toggle li li { 
 				font-size: 17px; 
@@ -449,7 +451,7 @@ fieldset.common {}
 		.listing_toggle li a.toggle {
 			float: left;
 			background: url(/images/icon/icon_toggle.gif) no-repeat left -75px;
-			margin: 0 5px 0 0;
+			margin: 0 5px 5px 0;
 			padding: 0 0 0 25px;
 			line-height: 24px;
 		}
