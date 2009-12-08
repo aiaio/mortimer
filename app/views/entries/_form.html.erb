@@ -8,12 +8,12 @@
 	
 	<div class="field text">
 		<label for="username">Username:</label>
-		<input id="username" name="entry[username]" value="<%= @entry.username %>" maxlength='110' tabindex="2" />
+		<input id="username" name="entry[username]" value="<%= @entry.username %>" maxlength='110' tabindex="2" autocomplete="off" />
 	</div>
 	
 	<div class="field text">
     <label for="password">Password <em>(<a href="javascript:void(0);" id="generate_password">Generate</a>)</em>:</label>  
-		<input id="password" type="password" name="entry[password]" value="<%= @entry.password %>" maxlength='40' tabindex="3" />
+		<input id="password" type="password" name="entry[password]" value="<%= @entry.password %>" maxlength='40' tabindex="3" autocomplete="off" />
 	</div>
 	
 	<div class="field text">
