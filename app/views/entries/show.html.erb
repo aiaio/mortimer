@@ -2,7 +2,7 @@
 <div class="overlay_content">
 	<div id="boxmenu">
 		<h2>
-			<%= @entry.group.title + ": <span>" + @entry.title + "</span>" %>
+			<%= @entry.group.title + ": <span>" + truncate(@entry.title, 60) + "</span>" %>
 		
 			<% if @entry.allows_write_access_for?(current_user) %>
 			<em>(<a href="<%= edit_entry_url(@entry) %>">edit / delete</a>)</em>
@@ -15,7 +15,13 @@
 		<dd><%=h @entry.title %></dd>
 
 		<dt>Username:</dt>
-		<dd><%=h truncate (@entry.username, :length => 30) %></dd>
+		<dd>
+		<% if @entry.username.size > 35 %>
+			<%= @entry.username[0..30] + "<br />" + @entry.username[30..-1]  %>
+		<%else%>
+			<%= @entry.username %>
+		<%end%>
+		</dd>
 
 		<dt>Password:</dt>
     <dd id="password_container">

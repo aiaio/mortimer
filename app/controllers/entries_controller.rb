@@ -31,7 +31,8 @@ class EntriesController < ApplicationController
       render :text => login_url, :status => 401
     else
       @entry.decrypt_attributes_for(current_user, session[:pwd])
-      render :template => "entries/show", :layout => false
+	  render :template => "entries/show", :layout => false
+	  
     end
     rescue AccessDenied, PermissionsError => exception 
       flash[:notice] = "You don't have access to that! Attempt logged."
