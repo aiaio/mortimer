@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:login], params[:password])
     if !user
       note_failed_signin
-      flash[:notice] = "Bad email or password."
+      flash[:notice] = "Invalid email or password."
       @login       = params[:login]
       render :action => 'new'
     elsif user_has_permissions?(user)
