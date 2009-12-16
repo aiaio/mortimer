@@ -1,5 +1,5 @@
 <li class="clear">
-  <a href="<%= entry_url(entry)%>" class='littlebox'><%= truncate(entry.title, 45) %></a>
+  <a href="<%= entry_url(entry)%>" class='littlebox'><%= truncate(entry.title, 35) %></a>
   <% if entry.group.allows_write_access_for?(current_user) %>
     <em>(<a href="<%= edit_entry_url(entry)%>">edit / delete</a>)</em>
   <% end %>

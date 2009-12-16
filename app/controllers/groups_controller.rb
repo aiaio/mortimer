@@ -44,6 +44,11 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
+	#@group.ancestors.each do |ancestor|
+	  #if ancestor.title == @group.title
+	    #render :text => "You cannot save a group to itself or a descendent of itself! Please <a href='/groups/#{params[:id]}/edit'>go back</a> and double-check your entry."
+	  #end
+	#end
     if @group.update_attributes(params[:group])
       flash[:notice] = "Group successfully updated."
       redirect_to groups_url
@@ -74,7 +79,8 @@ class GroupsController < ApplicationController
 
     # Returns groups is pairs, adding 'None'.
     def groups_in_pairs
-      @groups = [['[None]', nil]] + Group.in_pairs 
+	  #@group_locate = Group.instantiator(params[:id])
+      @groups = [['[None]', nil]] + Group.in_pairs(groups = [], parent_name = "", list = [], params[:id])
     end  
 
 end

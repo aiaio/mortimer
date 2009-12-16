@@ -19,17 +19,23 @@ class Group < ActiveRecord::Base
   # Callbacks.
   before_create :build_admin_permissions
   before_destroy :verify_empty
-
+  #def self.instantiator(idz)
+  #  @id = idz
+  #end
   # Generates an array like the following:
   #   [["Root", 1], ["Root - Child", 2], ["Root - Child - Child", 3]]
   # If no initial group is supplied, all root-level groups are used to start.
   # Used to generate options for select on groups.
-  def self.in_pairs(groups = [], parent_name = "", list = [])
+  def self.in_pairs(groups = [], parent_name = "", list = [], idz=0)
     groups = (groups.empty? && parent_name.blank?) ? self.roots : groups
       groups.each do |group|
+	  if group.id != idz.to_i
+	  #if group.id != idz
+	  puts idz
         name = (parent_name.blank? ? parent_name : "#{parent_name} - ") + group.title
         list << [name, group.id]
-        list = in_pairs(group.children, name, list)
+        list = in_pairs(group.children, name, list, idz)
+	  end
       end  
     return list
   end  
