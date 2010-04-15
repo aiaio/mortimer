@@ -30,12 +30,15 @@
 		<label for="notes">Notes:</label>
 		<textarea id="notes" name="entry[description]" cols="30" rows="30" tabindex="6"><%= @entry.description %></textarea>
 	</div>
-	
 	<div class="field">
+	<% if current_user.is_admin == false  %>
+		<label for="entry">Group:</label>
+		<label><span><%= @entry.group.title %></span></label>
+	<% else %>	
 		<label for="entry">Group:</label>
 		<select id="entry" name="entry[group_id]"  tabindex="7">
 		  <%= options_for_select(@groups, @entry.group_id) %>
 		</select>
 	</div>
-
+	<%end%>
 </fieldset>
