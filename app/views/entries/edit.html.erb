@@ -1,9 +1,8 @@
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "password_generator" %>
 <% end %>
-
-<h1>Edit Entry<%= link_to "Delete this entry", entry_path(@entry), :method => "delete", 
-					:class => "destroy icon remove", :confirm => "Are you sure?" %></h1>
+<h1>Edit Entry<%= link_to("Delete this entry", entry_path(@entry), :group_id => @entry.group_id, :method => "delete", 
+					:class => "destroy icon remove", :confirm => "Are you sure?")%></h1>
 
 <%= error_messages_for :entry %>
 

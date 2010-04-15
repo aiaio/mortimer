@@ -244,6 +244,13 @@ fieldset.common {}
 				text-align: right;
 				padding-right: 10px;
 				line-height: 1.4;
+				position: relative;
+			}
+			fieldset.common .field label span.fakeLabel {
+				position: absolute;
+				left: 180px;
+				width: 100px;
+				color: #999;
 			}
 				fieldset.common .field label em {
 					font-size: 0.7em;

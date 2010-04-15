@@ -32,8 +32,8 @@
 	</div>
 	<div class="field">
 	<% if current_user.is_admin == false  %>
-		<label for="entry">Group:</label>
-		<label><span><%= @entry.group.title %></span></label>
+		<input type="hidden" name="entry[group_id]" value="<%= @entry.group_id %>" />
+		<label for="entry">Group:<span class="fakeLabel"><%= @entry.group.title %></span></label>
 	<% else %>	
 		<label for="entry">Group:</label>
 		<select id="entry" name="entry[group_id]"  tabindex="7">
@@ -41,4 +41,5 @@
 		</select>
 	</div>
 	<%end%>
+	</div>
 </fieldset>
