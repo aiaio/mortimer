@@ -96,7 +96,7 @@ class EntriesController < ApplicationController
     # Checking for write permissions requires
     # instantiating the group. Used only with #new and #create.
     def write_permissions_on_new
-      #return if current_user.is_admin?
+      return if current_user.is_admin?
       raise ActiveRecord::RecordNotFound if params[:entry].nil?
       @group = Group.find(params[:entry][:group_id])
       raise AccessDenied unless @group.allows_write_access_for?(current_user)
