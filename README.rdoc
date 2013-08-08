@@ -10,7 +10,7 @@ Admin users have permission to all password entries on the system.  Users may be
 
 == ENCRYPTION:
 
-mortimer uses asymmetric encryption on the user level.  It work like so:
+mortimer uses asymmetric encryption on the user level.  It works like so:
 
 Imagine that we need to store a shared password, such as the password to a web application admin.
 
